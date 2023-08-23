@@ -14,21 +14,20 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## .ENV Configuration
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+You need to do some things before start, need set the Evironment Variable
+such as :
 
-## Learn More
+- [GOOGLE_ID](https://console.developers.google.com/apis/credentials) - Here you can set and get your google ID.
+- [GOOGLE_SECRET](https://console.developers.google.com/apis/credentials) - After that you can get the Secret too.
+- [MONGODB_URI](https://www.mongodb.com/) - Go there and get your mongoDB URI.
+- [NEXTAUTH_SECRET](example: -hello_world-) - The toke use this secrete for authenticate the USER.
 
-To learn more about Next.js, take a look at the following resources:
+After do everything you can start the project and you can go to this URL [http://localhost:3000/register] (http://localhost:3000/register)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Now you can check your mongoAtlas and you will see a new users added 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+if you try this path [http://localhost:3000/dashboard/profile] (http://localhost:3000/dashboard/profile)
+if all are right, you will see all information about the user
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
