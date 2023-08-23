@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
 
 ## Getting Started
 
@@ -22,7 +22,7 @@ such as :
 - [GOOGLE_ID](https://console.developers.google.com/apis/credentials) - Here you can set and get your google ID.
 - [GOOGLE_SECRET](https://console.developers.google.com/apis/credentials) - After that you can get the Secret too.
 - [MONGODB_URI](https://www.mongodb.com/) - Go there and get your mongoDB URI.
-- [NEXTAUTH_SECRET](example: -hello_world-) - The toke use this secrete for authenticate the USER.
+- [NEXTAUTH_SECRET](example: -hello456_world546456-) - The toke use this secrete for authenticate the USER.
 
 After do everything you can start the project and you can go to this URL [http://localhost:3000/register] (http://localhost:3000/register)
 
@@ -31,3 +31,9 @@ Now you can check your mongoAtlas and you will see a new users added
 if you try this path [http://localhost:3000/dashboard/profile] (http://localhost:3000/dashboard/profile)
 if all are right, you will see all information about the user
 
+
+If you need more information or help with this code, or have some fix to do you can contact to me.
+
+- [INSTAGRAM](https://www.instagram.com/sancheznotdev/) - Follow me
+- [TWITTER OR X](https://twitter.com/sancheznotdev) - Follow me
+- [PORTFOLIO PAGE](https://www.sancheznot.com/) -
