@@ -2,7 +2,7 @@ import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { connectMongoDB } from "@/lib/mongodb";
-import User from "@/models/user";
+import User from "@/models/User";
 import { split } from "postcss/lib/list";
 import bycrypt from "bcryptjs";
 import { NextResponse } from "next/server";

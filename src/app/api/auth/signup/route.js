@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import User from "@/models/user";
+import User from "@/models/User";
 import {connectMongoDB} from "@/lib/mongodb";
 import bycrypt from "bcryptjs";
 const  profileImage = "https://upload.wikimedia.org/wikipedia/commons/5/50/User_icon-cp.svg";

@@ -14,19 +14,22 @@ const Form = () => {
   const handleSumit = async (e) => {
     e.preventDefault();
     const dataFromForm = new FormData(e.currentTarget);
+    const usernameLower = dataFromForm.get("username").toLowerCase();
 
     if (Pathname === "/register") {
+      const emailLower = dataFromForm.get("email").toLowerCase();
+
       try {
         const res = await axios.post("/api/auth/signup", {
-          username: dataFromForm.get("username"),
-          email: dataFromForm.get("email"),
+          username: usernameLower,
+          email: emailLower,
           name: dataFromForm.get("name"),
           lastname: dataFromForm.get("lastname"),
           password: dataFromForm.get("password"),
           art: dataFromForm.get("art"),
         });
         const resSignin = await signIn("credentials", {
-          username: dataFromForm.get("username"),
+          username: usernameLower,
           password: dataFromForm.get("password"),
           redirect: false,
         });
@@ -45,7 +48,7 @@ const Form = () => {
     if (Pathname === "/login") {
       try {
         const resSignin = await signIn("credentials", {
-          username: dataFromForm.get("username"),
+          username: usernameLower,
           password: dataFromForm.get("password"),
           redirect: false,
         });
