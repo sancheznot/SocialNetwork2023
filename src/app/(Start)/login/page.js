@@ -3,9 +3,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className='flex flex-row w-full h-screen'>
-      <div className='bg-black w-6/12 flex justify-center items-center'>
-      </div>
+    <div className='flex flex-row w-full h-screen justify-center items-center'>
       <Form />  
     </div>
   )
