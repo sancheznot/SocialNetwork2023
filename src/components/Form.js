@@ -1,8 +1,12 @@
 "use client";
 import axios, { AxiosError } from "axios";
 import React, { useState } from "react";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+
+import GoogleLogo from "@pb/img/login/googleLogo.png";
 
 const Form = () => {
   const [errors, setErrors] = useState(null);
@@ -67,10 +71,15 @@ const Form = () => {
   };
   return (
     <>
-      <div className="flex flex-col justify-center w-6/12">
-        <div className="flex justify-start items-center">
+      <div
+        className={
+          Pathname === "/login"
+            ? "flex flex-col justify-center items-center w-4/12 h-4/6 bg-gray-200 rounded-lg text-black"
+            : "flex flex-col justify-center w-6/12"
+        }>
+        <div className="flex self-start items-center">
           {Pathname === "/login" ? (
-            <h2 className="text-5xl p-2 ml-10">Sign In</h2>
+            <h2 className="text-5xl p-2 ml-10 font-thin">Sign In</h2>
           ) : (
             <h2 className="text-5xl p-2 ml-10">Sign Up</h2>
           )}
@@ -87,22 +96,27 @@ const Form = () => {
             </div>
           )}
         </div>
-        <div className="flex flex-row w-full h-screen justify-around items-center">
+        <div
+          className={
+            Pathname === "/login"
+              ? "flex flex-col w-full items-center"
+              : "flex flex-row w-full h-screen justify-around items-center"
+          }>
           <form
             onSubmit={handleSumit}
-            className="w-5/12 flex flex-col justify-start items-center text-black">
+            className="w-full flex flex-col justify-start items-center">
             {Pathname === "/login" ? (
-              <>
+              <div className="w-8/12">
                 <label
                   htmlFor="username"
-                  className="text-gray-400 text-md mb-2">
+                  className="text-gray-700 text-md mb-2">
                   Username
                 </label>
                 <input
                   type="text"
                   id="username"
                   name="username"
-                  className="border border-gray-300 rounded-lg p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                  className="border border-gray-300 rounded-lg p-3 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                   placeholder={
                     Pathname === "/login"
                       ? "Enter your username"
@@ -111,7 +125,7 @@ const Form = () => {
                 />
                 <label
                   htmlFor="password"
-                  className="text-gray-400 text-md mb-2">
+                  className="text-gray-700 text-md mb-2">
                   Password
                 </label>
                 <input
@@ -119,86 +133,88 @@ const Form = () => {
                   id="password"
                   name="password"
                   placeholder="Enter your password"
-                  className="border border-gray-300 rounded-lg p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                  className="border border-gray-300 rounded-lg p-3 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                 />
-              </>
+              </div>
             ) : (
               <>
-                <label
-                  htmlFor="username"
-                  className="text-gray-400 text-md mb-2">
-                  Username
-                </label>
-                <input
-                  type="text"
-                  id="username"
-                  name="username"
-                  className="border border-gray-300 rounded-lg p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                  placeholder="Use a cool username!"
-                />
-                <label htmlFor="email" className="text-gray-400 text-md mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  className="border border-gray-300 rounded-lg p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                  placeholder="Enter your email"
-                />
-                <label htmlFor="name" className="text-gray-400 text-md mb-2">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  className="border border-gray-300 rounded-lg p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                  placeholder="Enter your name"
-                />
-                <label
-                  htmlFor="lastname"
-                  className="text-gray-400 text-md mb-2">
-                  Lastname
-                </label>
-                <input
-                  type="text"
-                  id="lastname"
-                  name="lastname"
-                  className="border border-gray-300 rounded-lg p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                  placeholder="Enter your lastname"
-                />
-                <label
-                  htmlFor="password"
-                  className="text-gray-400 text-md mb-2">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  placeholder="Enter your password"
-                  className="border border-gray-300 rounded-lg p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                />
-                <label htmlFor="art" className="text-gray-400 text-md mb-2">
-                  What do you do?
-                </label>
-                <input
-                  type="text"
-                  id="art"
-                  name="art"
-                  placeholder="Actor, Singer"
-                  className="border border-gray-300 rounded-lg p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                />
-                <i>
-                  <strong className="text-sm text-gray-400">
-                    Divide using comma (Actor, Singer)
-                  </strong>
-                </i>
+                <div className="w-6/12">
+                  <label
+                    htmlFor="username"
+                    className="text-gray-400 text-md mb-2">
+                    Username
+                  </label>
+                  <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    className="border border-gray-300 rounded-lg p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                    placeholder="Use a cool username!"
+                  />
+                  <label htmlFor="email" className="text-gray-400 text-md mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    className="border border-gray-300 rounded-lg p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                    placeholder="Enter your email"
+                  />
+                  <label htmlFor="name" className="text-gray-400 text-md mb-2">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    className="border border-gray-300 rounded-lg p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                    placeholder="Enter your name"
+                  />
+                  <label
+                    htmlFor="lastname"
+                    className="text-gray-400 text-md mb-2">
+                    Lastname
+                  </label>
+                  <input
+                    type="text"
+                    id="lastname"
+                    name="lastname"
+                    className="border border-gray-300 rounded-lg p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                    placeholder="Enter your lastname"
+                  />
+                  <label
+                    htmlFor="password"
+                    className="text-gray-400 text-md mb-2">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    className="border border-gray-300 rounded-lg p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                  />
+                  <label htmlFor="art" className="text-gray-400 text-md mb-2">
+                    What do you do?
+                  </label>
+                  <input
+                    type="text"
+                    id="art"
+                    name="art"
+                    placeholder="Actor, Singer"
+                    className="border border-gray-300 rounded-lg p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                  />
+                  <i>
+                    <strong className="text-sm text-gray-400">
+                      Divide using comma (Actor, Singer)
+                    </strong>
+                  </i>
+                </div>
               </>
             )}
             {Pathname === "/login" ? (
-              <button className="bg-gray-300 p-2 mt-2 rounded-xl text-xl hover:bg-blue-500 hover:text-white text-black">
+              <button className="w-5/12 bg-gray-300 p-3 mt-2 rounded-xl text-xl hover:bg-blue-500 hover:text-white text-black">
                 Sign In
               </button>
             ) : (
@@ -207,34 +223,55 @@ const Form = () => {
               </button>
             )}
           </form>
-          <div className="flex flex-col">
+          <div className="flex flex-col w-full">
             {Pathname === "/login" ? (
-              <div className="w-full flex flex-col justify-center items-start">
-                <h2 className="text-2xl p-2 ml-10">Sign in with google</h2>
-                <button
-                  onClick={() => signIn("google", { redirect: false })}
-                  className="bg-gray-300 p-2 mt-2 ml-44 rounded-xl text-xl hover:bg-blue-500 hover:text-white text-black">
-                  Sign In Google
-                </button>
+              <div className="w-full flex flex-col justify-center items-center">
+                <p className="my-2">or</p>
+                <div className="">
+                  <button
+                    onClick={() =>
+                      signIn("google", {
+                        redirect: true,
+                        callbackUrl: "/dashboard",
+                      })
+                    }
+                    className="w-full p-1 mt-2 rounded-lg text-xl bg-white border border-gray-400">
+                    <div className="w-16">
+                      <Image src={GoogleLogo} alt="logo_Google" />
+                    </div>
+                  </button>
+                </div>
+                <div className="mt-12 ml-3 self-start">
+                  <Link
+                    href="/register"
+                    className="rounded-xl text-base hover:text-red-500 text-black">
+                    Don&apos;t have an account? Sign Up
+                  </Link>
+                </div>
               </div>
             ) : (
               <div className="w-full flex flex-col justify-center items-start">
                 <h2 className="text-2xl p-2 ml-10">Sign up with google</h2>
                 <button
-                  onClick={() => signIn("google", { redirect: false })}
+                  onClick={() =>
+                    signIn("google", {
+                      redirect: true,
+                      callbackUrl: "/dashboard",
+                    })
+                  }
                   className="bg-gray-300 p-2 mt-2 ml-44 rounded-xl text-xl hover:bg-blue-500 hover:text-white text-black">
                   Sign Up Google
                 </button>
+                <div className="w-full flex flex-col justify-center items-start">
+                  <h2 className="text-2xl p-2 ml-10">Sign-in</h2>
+                  <Link
+                    href="/login"
+                    className="bg-gray-300 p-2 mt-2 ml-44 rounded-xl text-xl hover:bg-red-500 hover:text-white text-black">
+                    Sign-In
+                  </Link>
+                </div>
               </div>
             )}
-            <div className="w-full flex flex-col justify-center items-start">
-              <h2 className="text-2xl p-2 ml-10">Sign Out</h2>
-              <button
-                onClick={() => signOut()}
-                className="bg-gray-300 p-2 mt-2 ml-44 rounded-xl text-xl hover:bg-red-500 hover:text-white text-black">
-                SignOut
-              </button>
-            </div>
           </div>
         </div>
       </div>
