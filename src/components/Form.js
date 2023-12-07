@@ -22,7 +22,6 @@ const Form = () => {
 
     if (Pathname === "/register") {
       const emailLower = dataFromForm.get("email").toLowerCase();
-
       try {
         const res = await axios.post("/api/auth/signup", {
           username: usernameLower,
@@ -30,7 +29,6 @@ const Form = () => {
           name: dataFromForm.get("name"),
           lastname: dataFromForm.get("lastname"),
           password: dataFromForm.get("password"),
-          art: dataFromForm.get("art"),
         });
         const resSignin = await signIn("credentials", {
           username: usernameLower,
@@ -51,12 +49,26 @@ const Form = () => {
     }
     if (Pathname === "/login") {
       try {
+        if (!usernameLower) return setErrors("Username is required");
+        if (!dataFromForm.get("password"))
+          return setErrors("Password is required");
+
         const resSignin = await signIn("credentials", {
           username: usernameLower,
           password: dataFromForm.get("password"),
           redirect: false,
         });
         setErrors(null);
+
+        if (resSignin.error === "User not found") {
+          setSuccess(null);
+          return setErrors("User not found");
+        }
+        if (resSignin.error === "Password not match or User not found") {
+          setSuccess(null);
+          return setErrors("Password not match or User not found");
+        }
+
         if (resSignin?.ok) {
           setSuccess("Login success");
           return router.push("/dashboard");
@@ -195,21 +207,6 @@ const Form = () => {
                     placeholder="Enter your password"
                     className="border border-gray-300 rounded-lg p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                   />
-                  <label htmlFor="art" className="text-gray-400 text-md mb-2">
-                    What do you do?
-                  </label>
-                  <input
-                    type="text"
-                    id="art"
-                    name="art"
-                    placeholder="Actor, Singer"
-                    className="border border-gray-300 rounded-lg p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                  />
-                  <i>
-                    <strong className="text-sm text-gray-400">
-                      Divide using comma (Actor, Singer)
-                    </strong>
-                  </i>
                 </div>
               </>
             )}

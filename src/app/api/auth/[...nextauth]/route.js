@@ -6,7 +6,6 @@ import User from "@/models/User";
 import { split } from "postcss/lib/list";
 import bycrypt from "bcryptjs";
 import { NextResponse } from "next/server";
-import { ProfilingLevel } from "mongodb";
 
 const handler = NextAuth({
   providers: [
@@ -22,25 +21,28 @@ const handler = NextAuth({
       },
       async authorize(credentials) {
         await connectMongoDB();
+
         const userFound = await User.findOne({
-          username: credentials?.username,
+          username: credentials.username,
         }).select("+password");
+
         if (!userFound) {
-          throw new Error("Invalid username credentials");
+          throw new Error("User not found");
         }
         const passwordMatch = await bycrypt.compare(
           credentials.password,
           userFound.password
         );
         if (!passwordMatch) {
-          throw new Error("Invalid credentials");
+          throw new Error("Password not match or User not found");
         }
+
         return userFound;
       },
     }),
   ],
   callbacks: {
-    async jwt({ token, account, profile, session, user }) {
+    async jwt({ token, user }) {
       if (user) {
         token.user = user;
         const sessionUser = await User.findOne({ email: user.email });
@@ -50,7 +52,6 @@ const handler = NextAuth({
         token.user.lastname = sessionUser.lastname;
         token.user.username = sessionUser.username;
         token.user.createdAt = sessionUser.createdAt;
-        token.user.art = sessionUser.art;
       }
       return token;
     },
@@ -61,9 +62,19 @@ const handler = NextAuth({
     async signIn({ profile, credentials }) {
       try {
         await connectMongoDB();
+        const usernameExists = await User.findOne({
+          username: credentials?.username,
+        }).select("+username");
         const userExists = await User.find({
           $or: [{ email: profile?.email }, { username: credentials?.username }],
         });
+
+        if (usernameExists && usernameExists.length > 0) {
+          return NextResponse.json(
+            { message: "Username is in use" },
+            { status: 400 }
+          );
+        }
 
         if (userExists && userExists.length > 0) {
           return NextResponse.json(
@@ -88,14 +99,13 @@ const handler = NextAuth({
             name: profile?.given_name,
             lastname: profile?.family_name,
             password: profilePassword,
-            art: "Set your art",
             image: profile?.picture,
           });
         }
         
         return true;
       } catch (e) {
-        console.log(e, "aqui");
+        console.log(e);
         return false;
       }
     },
