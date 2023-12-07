@@ -1,11 +1,14 @@
-'use client';
+"use client";
+
+import Link from "next/link";
 
 const Dashboard = () => {
-
-
   return (
-    <div>Hello welcome, here start your project!</div>
-  )
-}
+    <div className="flex justify-center items-center">
+      firts page
+      
+    </div>
+  );
+};
 
-export default Dashboard
+export default Dashboard;

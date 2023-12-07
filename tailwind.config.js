@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
+import  {nextui}  from "@nextui-org/react";
+
 module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -54,5 +56,6 @@ module.exports = {
       // => @media (max-width: 425px) { ... }
     },
   },
-  plugins: [],
+  darkMode: "class",
+  plugins: [nextui()],
 };
