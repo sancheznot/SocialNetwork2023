@@ -25,19 +25,17 @@ const UserSchema = new Schema({
     minlength: 6,
     select: false,
   },
-  art: [
-    {
-      type: Object,
-      required: true,
-    },
-  ],
   createdAt: {
     type: Date,
     default: Date.now(),
   },
   image: {
     type: String,
-  }
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const User = models.User || model("User", UserSchema);
