@@ -15,7 +15,7 @@ export function ThemeSwitcher() {
 
   return (
     <div className="w-12">
-      <div className={`w-full rounded-2xl flex flex-row justify-center items-center p-1 ${theme === "dark" ?  "bg-gray-400" : "bg-gray-100"}`}>
+      <div className={`w-full rounded-2xl flex flex-row justify-center items-center p-1 ${theme === "dark" ?  "bg-gray-400" : "bg-black/20"}`}>
         <button
           onClick={() => setTheme("light")}
           className={`transition-all duration-1000 ease-in-out ${
@@ -27,7 +27,7 @@ export function ThemeSwitcher() {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6">
+            className="w-6 h-6 sm:w-5 sm:h-5">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
