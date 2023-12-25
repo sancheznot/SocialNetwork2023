@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-import  {nextui}  from "@nextui-org/react";
+import { nextui } from "@nextui-org/react";
 
 module.exports = {
   content: [
@@ -14,6 +14,21 @@ module.exports = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      colors: {
+        photeradark: {
+          50: "#eff9ff",
+          100: "#def1ff",
+          200: "#b6e6ff",
+          300: "#76d3ff",
+          400: "#2ebeff",
+          500: "#0083d2",
+          600: "#0083d2",
+          700: "#0068aa",
+          800: "#00598c",
+          900: "#074973",
+          950: "#031f33",
+        },
       },
     },
     screens: {
@@ -99,4 +114,3 @@ module.exports = {
     }),
   ],
 };
-
