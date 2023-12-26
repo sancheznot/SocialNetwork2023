@@ -86,7 +86,7 @@ const Form = () => {
       <div
         className={
           Pathname === "/login"
-            ? "flex flex-col justify-center items-center w-4/12 sm:w-11/12 rounded-lg text-black dark:text-white"
+            ? "flex flex-col justify-center items-center w-4/12 lg:w-7/12 sm:w-11/12 rounded-lg text-black dark:text-white"
             : "flex flex-col justify-center w-6/12 sm:w-full sm:items-center"
         }>
         <div className="flex self-start items-center">

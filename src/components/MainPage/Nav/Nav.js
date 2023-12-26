@@ -14,7 +14,7 @@ import { ThemeSwitcher } from "@/components/NextTheme/ThemeSwitcher.js";
 export default function App() {
   return (
     <Navbar isBordered>
-      <div className="flex flex-row justify-around lg:justify-between items-center w-full">
+      <div className="flex flex-row justify-around lg:justify-between md:w-11/12 items-center w-full">
         <NavbarBrand>
           <AcmeLogo />
           <Link className="font-bold text-inherit" href="/">
