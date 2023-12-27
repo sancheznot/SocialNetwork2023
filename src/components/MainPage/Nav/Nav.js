@@ -16,7 +16,7 @@ export default function App() {
   const { data: session } = useSession();
 
   return (
-    <Navbar isBordered>
+    <Navbar isBordered className="h-20">
       <div className="flex flex-row justify-around lg:justify-between md:w-11/12 items-center w-full">
         <NavbarBrand>
           <AcmeLogo />
@@ -29,10 +29,10 @@ export default function App() {
             <>
               <NavbarItem>
                 <Button
-                onClick={() => {signOut()}}
-                  as={Link}
+                  onClick={() => {
+                    signOut();
+                  }}
                   color="primary"
-                  href="register"
                   variant="ghost"
                   className="sm:text-sm">
                   Log Out
