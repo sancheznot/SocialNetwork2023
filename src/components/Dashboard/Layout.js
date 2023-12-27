@@ -1,16 +1,17 @@
-'use client'
-import React from 'react'
-import Nav from './Main/Nav'
-import { useSession } from 'next-auth/react'
+"use client";
+import React from "react";
+import { useSession } from "next-auth/react";
+import SideNav from "./Main/SideNav";
 
-const Layout = () => {
-    const { data: session } = useSession()
+const Layout = ({ children }) => {
+  const { data: session } = useSession();
 
   return (
-    <div>
-        <Nav Session={session} />
+    <div className="w-full">
+      <SideNav session={session} />
+      {children}  
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

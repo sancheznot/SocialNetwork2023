@@ -1,11 +1,11 @@
 import Link from "next/link";
 import React from "react";
 
-const Nav = ({ Session }) => {
+const Nav = ({ session }) => {
   return (
     <div>
       <Link href="/dashboard">Dashboard</Link>
-      {Session?.user?.isAdmin && <Link href="/sudo">Admin</Link>}
+      {session?.user?.isAdmin && <Link href="/sudo">Admin</Link>}
     </div>
   );
 };
