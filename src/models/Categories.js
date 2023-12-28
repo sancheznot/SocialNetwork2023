@@ -6,12 +6,9 @@ const CategoriesSchema = new Schema({
         required: true,
         unique: true
     },
-    products: [{
-        type: Schema.Types.ObjectId,
-        ref: "Products"
-    }]
+    
 }, {
     timestamps: true
 })
 
-export default models.Categories || model("Categories", CategoriesSchema);
+export default models.Categorie || model("Categorie", CategoriesSchema);

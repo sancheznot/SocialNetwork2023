@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import User from "@/models/User";
-import {connectMongoDB} from "@/lib/mongodb";
+import { connectMongoDB } from "@/lib/mongodb";
 import bycrypt from "bcryptjs";
-const  profileImage = "https://upload.wikimedia.org/wikipedia/commons/5/50/User_icon-cp.svg";
+const profileImage =
+  "https://upload.wikimedia.org/wikipedia/commons/5/50/User_icon-cp.svg";
 
 export async function POST(request) {
-  const { username, email, name, lastname, password, art } =
-    await request.json();
+  const { username, email, name, lastname, password } = await request.json();
 
   if (!username || username.length < 3 || username.length > 20) {
     return NextResponse.json(
@@ -32,12 +32,6 @@ export async function POST(request) {
       { status: 400 }
     );
   }
-  if (!art) {
-    return NextResponse.json(
-      { message: "Please add your art" },
-      { status: 400 }
-    );
-  }
 
   try {
     await connectMongoDB();
@@ -45,10 +39,7 @@ export async function POST(request) {
     const userFound = await User.findOne({ username: username });
 
     if (emailFound) {
-      return NextResponse.json(
-        { message: "Email is in use" },
-        { status: 400 }
-      );
+      return NextResponse.json({ message: "Email is in use" }, { status: 400 });
     }
     if (userFound) {
       return NextResponse.json(
@@ -56,10 +47,6 @@ export async function POST(request) {
         { status: 400 }
       );
     }
-
-
-    JSON.stringify({ art });
-    const artProcceced = art.split(",");
 
     const salt = await bycrypt.genSalt(12);
     const passwordEncryted = await bycrypt.hash(password, salt);
@@ -70,13 +57,11 @@ export async function POST(request) {
       name,
       lastname,
       password: passwordEncryted,
-      art: artProcceced,
       image: profileImage,
     });
     const userSaved = await newUser.save();
     return NextResponse.json({ message: "User created" }, userSaved);
   } catch (error) {
-    console.log(error);
     return NextResponse.json(
       { message: "Something went wrong" },
       { status: 500 }
