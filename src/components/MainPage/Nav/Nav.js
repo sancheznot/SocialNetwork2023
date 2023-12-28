@@ -16,52 +16,54 @@ export default function App() {
   const { data: session } = useSession();
 
   return (
-    <Navbar isBordered className="h-20">
-      <div className="flex flex-row justify-around lg:justify-between md:w-11/12 items-center w-full">
-        <NavbarBrand>
-          <AcmeLogo />
-          <Link className="font-bold text-inherit" href="/">
-            Photera
-          </Link>
-        </NavbarBrand>
-        <NavbarContent justify="end" className="gap-2">
-          {session ? (
-            <>
-              <NavbarItem>
-                <Button
-                  onClick={() => {
-                    signOut();
-                  }}
-                  color="primary"
-                  variant="ghost"
-                  className="sm:text-sm">
-                  Log Out
-                </Button>
-              </NavbarItem>
-            </>
-          ) : (
-            <>
-              <NavbarItem className="flex">
-                <Link href="login" className="sm:text-sm">
-                  Login
-                </Link>
-              </NavbarItem>
-              <NavbarItem>
-                <Button
-                  as={Link}
-                  color="primary"
-                  href="register"
-                  variant="ghost"
-                  className="sm:text-sm">
-                  Sign Up
-                </Button>
-              </NavbarItem>
-            </>
-          )}
-          <NavbarItem>
-            <ThemeSwitcher />
-          </NavbarItem>
-        </NavbarContent>
+    <Navbar isBordered className="h-20 ">
+      <div className="flex justify-center items-center w-full">
+        <div className="flex flex-row justify-between  md:w-11/12 items-center w-10/12">
+          <NavbarBrand>
+            <AcmeLogo />
+            <Link className="font-bold text-inherit" href="/">
+              Photera
+            </Link>
+          </NavbarBrand>
+          <NavbarContent justify="end" className="gap-2">
+            {session ? (
+              <>
+                <NavbarItem>
+                  <Button
+                    onClick={() => {
+                      signOut();
+                    }}
+                    color="primary"
+                    variant="ghost"
+                    className="sm:text-sm">
+                    Log Out
+                  </Button>
+                </NavbarItem>
+              </>
+            ) : (
+              <>
+                <NavbarItem className="flex">
+                  <Link href="login" className="sm:text-sm">
+                    Login
+                  </Link>
+                </NavbarItem>
+                <NavbarItem>
+                  <Button
+                    as={Link}
+                    color="primary"
+                    href="register"
+                    variant="ghost"
+                    className="sm:text-sm">
+                    Sign Up
+                  </Button>
+                </NavbarItem>
+              </>
+            )}
+            <NavbarItem>
+              <ThemeSwitcher />
+            </NavbarItem>
+          </NavbarContent>
+        </div>
       </div>
     </Navbar>
   );

@@ -1,9 +1,9 @@
-"use client";
+import Main from "@/components/Dashboard/Main/Main";
 
 const Dashboard = () => {
   return (
     <div className="w-full">
-      Hola
+      <Main />
     </div>
   );
 };
