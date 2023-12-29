@@ -6,7 +6,7 @@ import GoBackButton from "../GoBackButton";
 
 const Layout = () => {
   return (
-    <div className="w-full h-[calc(100vh-5rem)] dark:bg-gradient-to-tl dark:from-photeradark-950 dark:via-photeradark-800 dark:to-photeradark-400 p-2 rounded-l-lg text-3xl">
+    <div className="w-full h-[calc(100vh-5rem)] flex flex-col items-center justify-between dark:bg-gradient-to-tl dark:from-photeradark-950 dark:via-photeradark-800 dark:to-photeradark-400 p-2 rounded-l-lg text-3xl">
       <div className="w-full flex flex-col justify-center items-center mt-5">
         <div className="grid grid-cols-2 w-full place-content-center place-items-center">
           <Link
@@ -46,8 +46,8 @@ const Layout = () => {
             Banned List
           </Link>
         </div>
-      <GoBackButton />
       </div>
+      <GoBackButton />
     </div>
   );
 };

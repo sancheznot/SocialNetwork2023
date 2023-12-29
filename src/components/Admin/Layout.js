@@ -16,9 +16,9 @@ const Layout = () => {
     );
   } else {
     return (
-      <div className="w-full h-[calc(100vh-5rem)] dark:bg-gradient-to-tl dark:from-photeradark-950 dark:via-photeradark-800 dark:to-photeradark-400 p-2 rounded-l-lg text-3xl">
-        <h1>Admin {session?.user?.username}</h1>
-        <div className="w-full flex flex-col justify-center items-center mt-5">
+      <div className="w-full h-[calc(100vh-5rem)] flex flex-col items-center justify-between dark:bg-gradient-to-tl dark:from-photeradark-950 dark:via-photeradark-800 dark:to-photeradark-400 p-2 rounded-l-lg text-3xl">
+        <div className="w-full flex flex-col justify-center items-center">
+        <h1 className="self-start text-3xl font-light mb-5">Admin {session?.user?.username}</h1>
           <div className="grid grid-cols-3 w-full place-content-center place-items-center">
             
             <Link
@@ -83,8 +83,8 @@ const Layout = () => {
               New ban
             </Link>
           </div>
-        <GoBackButton />
         </div>
+        <GoBackButton />
       </div>
     );
   }

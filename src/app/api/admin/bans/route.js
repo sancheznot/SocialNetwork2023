@@ -2,6 +2,11 @@ import { connectMongoDB } from "@/lib/mongodb";
 import BlackList from "@/models/BlackList";
 
 export async function GET(request) {
+  const header = request.headers.get("Authorization");
+  if (header !== "Admin true") {
+    return Response.json({ message: "Sorry you are not admin" }, { status: 401 });
+  }
+  connectMongoDB();
   const blacklist = await BlackList.find({});
   return Response.json({ blacklist });
 }

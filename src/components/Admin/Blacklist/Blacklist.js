@@ -2,27 +2,36 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import GoBackButton from "../GoBackButton";
+import { useSession } from "next-auth/react";
 
 const Blacklist = () => {
+  const { data: session } = useSession();
+
   const [blakList, setBlackList] = useState();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
+    if (session) {
+      setIsAdmin(session.user.isAdmin);
+    }
     const blacklists = async () => {
-      const res = await axios.get("/api/admin/bans");
-      console.log(res.data.blacklist);
+      const res = await axios.get("/api/admin/bans", {
+        headers: { Authorization: `Admin ${isAdmin}` },
+      });
       setBlackList(res.data.blacklist);
     };
-    blacklists();
-  }, []);
+    if (isAdmin) {
+      blacklists();
+    }
+  }, [isAdmin, session]);
 
   const removeOftheList = async (e, username) => {
     e.preventDefault();
     const sendUsername = await axios.delete("/api/admin/bans", {
       data: { username: username },
     });
-    console.log(sendUsername);
     if (sendUsername) {
       setSuccess(sendUsername.data.message);
     } else {
