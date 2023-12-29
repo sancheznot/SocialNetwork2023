@@ -1,18 +1,13 @@
 "use client";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import GoBackButton from "../GoBackButton";
 
 const NewCategories = () => {
   const [categories, setCategories] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const router = useRouter();
-
-  const goBack = () => {
-    router.back();
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,7 +61,7 @@ const NewCategories = () => {
             />
             <button
               onClick={handleSubmit}
-              className="dark:bg-photeradark-900 dark:text-white  p-2 rounded-md mb-4">
+              className="dark:bg-photeradark-900 bg-gray-300 dark:text-white  p-2 rounded-md mb-4">
               Create
             </button>
             <div className="mb-2">
@@ -76,23 +71,7 @@ const NewCategories = () => {
           </form>
         </div>
       </div>
-      <div className="self-start dark:bg-photeradark-900 p-4 flex justify-center items-center rounded-full">
-        <button onClick={goBack} className="w-11 h-11">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-full h-full">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
-            />
-          </svg>
-        </button>
-      </div>
+      <GoBackButton />
     </div>
   );
 };
