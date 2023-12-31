@@ -1,8 +1,11 @@
+import UpFeedPhotos from '@/components/Dashboard/PhotoUploads/UpFeedPhotos'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>page</div>
+    <div>
+      <UpFeedPhotos/>
+    </div>
   )
 }
 
