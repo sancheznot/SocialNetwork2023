@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@nextui-org/react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -92,9 +93,9 @@ const UpFeedPhotos = () => {
           onChange={UploadPhoto}
           disabled={uploading}
         />
-        <button onClick={handleSubmit} disabled={uploading}>
-          Posted
-        </button>
+           <Button color="primary" isLoading={uploading} onClick={handleSubmit}>
+      Posted
+    </Button>
       </form>
     </div>
   );

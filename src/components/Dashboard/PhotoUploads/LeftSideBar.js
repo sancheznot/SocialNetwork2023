@@ -8,7 +8,7 @@ const LeftSideBar = () => {
   return (
     <div
       className="bg-gradient-to-tl dark:from-photeradark-900 dark:via-photeradark-800 dark:to-photeradark-700 
-    w-full col-span-3 rounded-lg h-[calc(100vh-10rem)] mt-2 overflow-auto flex flex-col justify-between">
+    w-full col-span-3 rounded-lg h-[calc(100vh-15rem)] mt-2 overflow-auto flex flex-col justify-between">
       <div className=" w-full text-lg flex flex-col gap-5 mt-2 justify-center items-start ml p-3">
         <Link
           href="/upload"

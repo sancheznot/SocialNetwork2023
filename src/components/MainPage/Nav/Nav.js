@@ -16,7 +16,7 @@ export default function App() {
   const { data: session } = useSession();
 
   return (
-    <Navbar isBordered className="h-20 ">
+    <Navbar isBordered maxWidth="full"  className="h-16 w-full" >
       <div className="flex justify-center items-center w-full">
         <div className="flex flex-row justify-between  md:w-11/12 items-center w-10/12">
           <NavbarBrand>
@@ -33,7 +33,7 @@ export default function App() {
                     onClick={() => {
                       signOut();
                     }}
-                    color="primary"
+                    color="danger"
                     variant="ghost"
                     className="sm:text-sm">
                     Log Out

@@ -12,7 +12,7 @@ const SideNav = () => {
 
   return (
     <div
-      className="bg-gradient-to-tl dark:from-photeradark-900 dark:via-photeradark-800 dark:to-photeradark-700 
+      className="bg-gradient-to-tl lg:hidden dark:from-photeradark-900 dark:via-photeradark-800 dark:to-photeradark-700 
     w-11/12 col-span-2 rounded-tr-lg h-[calc(100vh-5rem)] overflow-auto flex flex-col justify-between">
       <div className="flex flex-col gap-5">
         <PhotoUser session={session} />
