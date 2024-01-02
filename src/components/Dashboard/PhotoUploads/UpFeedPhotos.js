@@ -1,9 +1,12 @@
 "use client";
-import { Button } from "@nextui-org/react";
+import { Button, Input, Spinner } from "@nextui-org/react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import FileDropzone from "./FileDropzone";
+import GoBackButton from "@/components/Admin/GoBackButton";
+import { set } from "mongoose";
 
 const UpFeedPhotos = () => {
   const { data: session } = useSession();
@@ -16,6 +19,9 @@ const UpFeedPhotos = () => {
   const [userId, setUserId] = useState(null);
   const [title, setTitle] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  const [uploadCategory, setUploadCategory] = useState(false);
 
   useEffect(() => {
     if (session) {
@@ -23,12 +29,25 @@ const UpFeedPhotos = () => {
     }
   }, [session]);
 
+  useEffect(() => {
+    const getCategories = async () => {
+      setUploadCategory(true);
+      const res = await axios.get("/api/user/categories");
+      setCategories(res.data.categories);
+      setTimeout(() => {
+        setUploadCategory(false);
+      }, 1000);
+    };
+    getCategories();
+  }, []);
+
   // It create a new publication with the photo uploaded and user id
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!image) {
       return;
     }
+    console.log(title, image, userId);
     const data = await axios.post("/api/user/uploads/publication", {
       title: title,
       url: image,
@@ -48,15 +67,16 @@ const UpFeedPhotos = () => {
   };
 
   // It upload the photo to AWS S3
-  const UploadPhoto = async (e) => {
-    e.preventDefault();
+  const UploadPhoto = async (files) => {
+    console.log(files);
     // get file from input
-    const file = e.target.files[0];
-    if (!file) {
+
+    // const file = e.target.files[0];
+    if (!files) {
       return;
     }
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", files);
     setUploading(true);
     try {
       const res = await axios.post("/api/user/uploads/photos", formData, {
@@ -72,31 +92,51 @@ const UpFeedPhotos = () => {
   };
 
   return (
-    <div>
-      <h3>{error}</h3>
-      <h3>{success}</h3>
-      <form>
-        <input
-          value={title}
-          type="text"
-          placeholder="Write Something"
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-          maxLength={50}
-          minLength={1}
-        />
-        <input
-          type="file"
-          name="file"
-          accept="image/*"
-          onChange={UploadPhoto}
-          disabled={uploading}
-        />
-           <Button color="primary" isLoading={uploading} onClick={handleSubmit}>
-      Posted
-    </Button>
-      </form>
+    <div className="w-full col-span-12 h-[calc(100vh-5rem)] dark:bg-gradient-to-tl flex flex-col justify-center items-center dark:from-photeradark-950 dark:via-photeradark-800 dark:to-photeradark-400 p-2 rounded-l-lg text-3xl">
+      {uploadCategory ? (
+        <Spinner size="lg"/>
+      ) : (
+        <>
+          <h3>{error}</h3>
+          <h3>{success}</h3>
+          <form className="w-5/12 md:w-11/12 flex flex-col justify-center items-center gap-5">
+            <Input
+              type="text"
+              label="Title"
+              value={title}
+              maxLength={50}
+              minLength={1}
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+            />
+            <FileDropzone onFileChange={UploadPhoto} uploading={uploading} />
+            <div className="grid grid-cols-12 place-items-center gap-x-3">
+              <h4 className="col-span-12 font-extralight text-3xl">Photos categories</h4>
+              {categories.map((category) => (
+                <div key={category._id} className="col-span-3 w-full mx-2">
+                  <input
+                    type="checkbox"
+                    name={category.name}
+                    value={category._id}
+                    id={category.name}
+                  />
+                  <label htmlFor={category.name} className="text-lg font-light ml-1">{category.name}</label>
+                </div>
+              ))}
+            </div>
+            <Button
+              color="primary"
+              isLoading={uploading}
+              onClick={handleSubmit}
+              className="text-lg"
+              >
+              Posted
+            </Button>
+          </form>
+        </>
+      )}
+      <GoBackButton />
     </div>
   );
 };

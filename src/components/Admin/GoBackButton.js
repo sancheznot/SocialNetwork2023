@@ -8,7 +8,7 @@ const GoBackButton = () => {
     router.back();
   };
   return (
-    <div className="self-start dark:bg-photeradark-900 bg-gray-300 p-4 flex justify-center items-center rounded-full">
+    <div className="self-start dark:bg-photeradark-900 bg-gray-300 p-4 md:p-3 sm:p-1 flex justify-center items-center rounded-full">
       <button onClick={goBack} className="w-11 h-11">
         <svg
           xmlns="http://www.w3.org/2000/svg"
