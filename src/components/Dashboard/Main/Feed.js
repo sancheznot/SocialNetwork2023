@@ -56,7 +56,6 @@ const Feed = () => {
               )
           )}
           {/* Información del usuario y título */}
-          {console.log(item.user.username)}
           <div className="p-4 mt-5 sm:mt-6 xl:mt-3">
             <p className="text-gray-600 font-light text-lg text-justify">{item.title}</p>
           </div>
