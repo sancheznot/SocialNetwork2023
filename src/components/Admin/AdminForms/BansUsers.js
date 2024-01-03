@@ -16,7 +16,7 @@ const BansUsers = () => {
     const usersList = async () => {
       const res = await axios.get("/api/user/userslist", {
         headers:{
-          "Cache-control": "no-cache",
+          "Cache-Control": "no-cache",
         }
       });
       setUserList(res.data);
