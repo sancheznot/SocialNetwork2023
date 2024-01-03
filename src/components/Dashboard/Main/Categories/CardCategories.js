@@ -16,7 +16,7 @@ export default function CardCategories() {
     const getCategories = async () => {
       const res = await axios.get("/api/user/categories", {
         headers:{
-          "Cache-Control": "no-cache",
+          "cache-control": "no-cache",
         }
       });
       console.log(res);
