@@ -1,6 +1,9 @@
 import { connectMongoDB } from "@/lib/mongodb";
 import Categorie from "@/models/Categories";
+
+// this can be used to disable the cache
 export const revalidate=0
+
 export async function GET(request) {
   try {
     connectMongoDB();
