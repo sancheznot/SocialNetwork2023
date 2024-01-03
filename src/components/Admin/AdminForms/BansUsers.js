@@ -14,7 +14,11 @@ const BansUsers = () => {
 
   useEffect(() => {
     const usersList = async () => {
-      const res = await axios.get("/api/user/userslist");
+      const res = await axios.get("/api/user/userslist", {
+        headers:{
+          "Cache-control": "no-cache",
+        }
+      });
       setUserList(res.data);
     };
     usersList();

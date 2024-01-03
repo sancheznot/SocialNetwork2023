@@ -14,7 +14,11 @@ export default function CardCategories() {
 
   useEffect(() => {
     const getCategories = async () => {
-      const res = await axios.get("/api/user/categories");
+      const res = await axios.get("/api/user/categories", {
+        headers:{
+          "Cache-Control": "no-cache",
+        }
+      });
       console.log(res);
       setCategories(res.data.categories);
     };
