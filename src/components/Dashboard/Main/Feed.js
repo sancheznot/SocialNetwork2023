@@ -9,10 +9,12 @@ const Feed = () => {
   useEffect(() => {
     const getUser = async () => {
       const res = await axios.get("/api/user/userslist");
+      console.log(res, "user");
       setUsers(res.data);
     };
     const getFeed = async () => {
       const res = await axios.get("/api/user/uploads/publication");
+      console.log(res, "publication");
       setFeed(res.data.photos);
     };
     getUser();
