@@ -15,6 +15,7 @@ export default function CardCategories() {
   useEffect(() => {
     const getCategories = async () => {
       const res = await axios.get("/api/user/categories");
+      console.log(res);
       setCategories(res.data.categories);
     };
     getCategories();
@@ -37,7 +38,6 @@ export default function CardCategories() {
               </h4>
             </div>
           </CardHeader>
-          {console.log(category)}
           <Image
             removeWrapper
             alt="Card background"
