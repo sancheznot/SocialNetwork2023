@@ -15,7 +15,10 @@ export default function CardCategories() {
   useEffect(() => {
     const getCategories = async () => {
       const res = await axios.get("/api/user/categories", {
-        cache: "no-store"
+        cache: "no-store",
+        next: {
+          revalidate: 350,
+        }
       });
       console.log(res);
       setCategories(res.data.categories);
