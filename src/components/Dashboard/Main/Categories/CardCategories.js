@@ -8,6 +8,7 @@ import {
   Button,
 } from "@nextui-org/react";
 import axios from "axios";
+import Link from "next/link";
 
 export default function CardCategories() {
   const [categories, setCategories] = useState([]);
@@ -30,9 +31,10 @@ export default function CardCategories() {
     <div className="max-w-prose ml-4 gap-2 grid grid-cols-12 ">
       <h2 className="col-span-12 font-light">Categories</h2>
       {categories.map((category) => (
-        <Card
-          key={category._id}
-          className="col-span-3 sm:col-span-4 h-[200px] dark:bg-gradient-to-tl from-photeradark-800 to-photeradark-400">
+        <Link href={`/categories/${category._id}`} key={category._id}
+        className="col-span-3 sm:col-span-4 h-[200px] dark:bg-gradient-to-tl rounded-xl from-photeradark-800 to-photeradark-400"
+        >
+          <Card className="w-full h-full">
           <CardHeader className="absolute z-10 top-1 flex-col  !items-end h-full justify-end">
             <div className="dark:bg-black/70 w-full rounded-xl p-2 flex flex-col items-end justify-end">
               <p className="text-tiny text-photeradark-200 uppercase font-bold">
@@ -50,6 +52,7 @@ export default function CardCategories() {
             src={category.imgURL}
           />
         </Card>
+        </Link>
       ))}
     </div>
   );

@@ -4,7 +4,7 @@ import Photos from "@/models/Photos";
 export async function GET(request) {
   try {
     connectMongoDB();
-    const photos = await Photos.find({});
+    const photos = await Photos.find({}).sort({createdAt:-1});
     return Response.json({ photos });
   } catch (error) {
     return Response.json({ message: `Sorry Error` }, { status: 500 });
