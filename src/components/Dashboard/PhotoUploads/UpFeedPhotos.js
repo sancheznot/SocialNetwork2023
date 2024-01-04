@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import FileDropzone from "./FileDropzone";
 import GoBackButton from "@/components/Admin/GoBackButton";
-import { set } from "mongoose";
 
 const UpFeedPhotos = () => {
   const { data: session } = useSession();
@@ -20,6 +19,7 @@ const UpFeedPhotos = () => {
   const [title, setTitle] = useState("");
   const [uploading, setUploading] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [photoCategory, setPhotoCategory] = useState(null);
 
   const [uploadCategory, setUploadCategory] = useState(false);
 
@@ -52,6 +52,7 @@ const UpFeedPhotos = () => {
       title: title,
       url: image,
       user: userId,
+      category: photoCategory,
     });
     setUploading(true);
     if (data.status === 200) {
@@ -94,7 +95,7 @@ const UpFeedPhotos = () => {
   return (
     <div className="w-full col-span-12 h-[calc(100vh-5rem)] dark:bg-gradient-to-tl flex flex-col justify-center items-center dark:from-photeradark-950 dark:via-photeradark-800 dark:to-photeradark-400 p-2 rounded-l-lg text-3xl">
       {uploadCategory ? (
-        <Spinner size="lg"/>
+        <Spinner size="lg" />
       ) : (
         <>
           <h3>{error}</h3>
@@ -112,25 +113,30 @@ const UpFeedPhotos = () => {
             />
             <FileDropzone onFileChange={UploadPhoto} uploading={uploading} />
             <div className="grid grid-cols-12 place-items-center gap-x-3">
-              <h4 className="col-span-12 font-extralight text-3xl">Photos categories</h4>
-              {categories.map((category) => (
-                <div key={category._id} className="col-span-3 w-full mx-2">
-                  <input
-                    type="checkbox"
-                    name={category.name}
-                    value={category._id}
-                    id={category.name}
-                  />
-                  <label htmlFor={category.name} className="text-lg font-light ml-1">{category.name}</label>
-                </div>
-              ))}
+              <h4 className="col-span-12 font-extralight text-3xl">
+                Photos categories
+              </h4>
+              <div className="col-span-3 w-full mx-2">
+                <select
+                  name="category"
+                  value={photoCategory}
+                  onChange={(e) => {
+                    setPhotoCategory(e.target.value);
+                  }}>
+                  <option value="">Select category</option>
+                  {categories.map((category) => (
+                    <option key={category._id} value={category._id}>
+                      {category.name.toUpperCase()}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
             <Button
               color="primary"
               isLoading={uploading}
               onClick={handleSubmit}
-              className="text-lg"
-              >
+              className="text-lg">
               Posted
             </Button>
           </form>
