@@ -1,5 +1,5 @@
 "use client";
-import { Button, Input, Spinner } from "@nextui-org/react";
+import { Button, Input, Select, SelectItem, Spinner } from "@nextui-org/react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -69,10 +69,8 @@ const UpFeedPhotos = () => {
 
   // It upload the photo to AWS S3
   const UploadPhoto = async (files) => {
-    console.log(files);
-    // get file from input
+   
 
-    // const file = e.target.files[0];
     if (!files) {
       return;
     }

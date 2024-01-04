@@ -17,9 +17,6 @@ export default function CardCategories() {
     const getCategories = async () => {
       const res = await axios.get("/api/user/categories", {
         cache: "no-store",
-        next: {
-          revalidate: 350,
-        }
       });
       console.log(res);
       setCategories(res.data.categories);
@@ -28,11 +25,11 @@ export default function CardCategories() {
   }, []);
 
   return (
-    <div className="max-w-prose ml-4 gap-2 grid grid-cols-12 ">
+    <div className="max-w-prose ml-4 gap-2 grid grid-cols-12 sm:mt-5 ">
       <h2 className="col-span-12 font-light">Categories</h2>
       {categories.map((category) => (
         <Link href={`/categories/${category._id}`} key={category._id}
-        className="col-span-3 sm:col-span-4 h-[200px] dark:bg-gradient-to-tl rounded-xl from-photeradark-800 to-photeradark-400"
+        className="col-span-3 sm:col-span-6 sm:h-[150px] h-[200px] dark:bg-gradient-to-tl rounded-xl from-photeradark-800 to-photeradark-400"
         >
           <Card className="w-full h-full">
           <CardHeader className="absolute z-10 top-1 flex-col  !items-end h-full justify-end">
@@ -40,14 +37,14 @@ export default function CardCategories() {
               <p className="text-tiny text-photeradark-200 uppercase font-bold">
                 {category.name}
               </p>
-              <h4 className="text-white font-medium first-letter:uppercase text-large">
+              <h4 className="text-white font-medium first-letter:uppercase text-large sm:text-xs">
                 {category.description}
               </h4>
             </div>
           </CardHeader>
           <Image
             removeWrapper
-            alt="Card background"
+            alt={category.name}
             className="z-0 w-full h-full object-cover"
             src={category.imgURL}
           />

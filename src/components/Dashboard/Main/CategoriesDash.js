@@ -11,7 +11,7 @@ const CategoriesDash = () => {
  
 
   return (
-    <div className=" col-span-9">
+    <div className=" col-span-9 sm:col-span-12 sm:order-2">
       <CardCategories/>
     </div>
   );

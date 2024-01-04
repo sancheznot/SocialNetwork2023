@@ -16,14 +16,14 @@ const Layout = () => {
     );
   } else {
     return (
-      <div className="w-full h-[calc(100vh-5rem)] flex flex-col items-center justify-between dark:bg-gradient-to-tl dark:from-photeradark-950 dark:via-photeradark-800 dark:to-photeradark-400 p-2 rounded-l-lg text-3xl">
+      <div className="w-full h-[calc(100vh-5rem)] flex flex-col  items-center justify-between dark:bg-gradient-to-tl dark:from-photeradark-950 dark:via-photeradark-800 dark:to-photeradark-400 p-2 rounded-l-lg text-3xl">
         <div className="w-full flex flex-col justify-center items-center">
         <h1 className="self-start text-3xl font-light mb-5">Admin {session?.user?.username}</h1>
-          <div className="grid grid-cols-3 w-full place-content-center place-items-center">
+          <div className="grid grid-cols-3 sm:gap-3 sm:grid-cols-2 w-full place-content-center place-items-center">
             
             <Link
               href={"/sudo/categories/new"}
-              className="border-2 border-photeradark-300 w-7/12 h-52 rounded-xl flex justify-center items-center text-xl text-center">
+              className="border-2 border-photeradark-300 w-7/12 sm:w-10/12 sm:h-28 p-1 h-52 rounded-xl flex justify-center items-center text-xl text-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -47,7 +47,7 @@ const Layout = () => {
 
             <Link
               href={"/sudo/blacklist/"}
-              className="border-2 border-photeradark-300 w-7/12 h-52 rounded-xl flex justify-center items-center text-xl text-center">
+              className="border-2 border-photeradark-300 w-7/12 h-52 sm:w-10/12 sm:h-28 p-1 rounded-xl flex justify-center items-center text-xl text-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -66,7 +66,7 @@ const Layout = () => {
 
             <Link
               href={"/sudo/blacklist/newban"}
-              className="border-2 border-photeradark-300 w-7/12 h-52 rounded-xl flex justify-center items-center text-xl text-center">
+              className="border-2 border-photeradark-300 w-7/12 h-52 sm:w-10/12 sm:h-28 p-1 rounded-xl flex justify-center items-center text-xl text-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

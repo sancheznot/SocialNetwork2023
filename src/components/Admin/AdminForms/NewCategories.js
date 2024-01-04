@@ -2,7 +2,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import GoBackButton from "../GoBackButton";
-import { Button } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
+import FileDropzone from "@/components/Dashboard/PhotoUploads/FileDropzone";
 
 const NewCategories = () => {
   const [categories, setCategories] = useState("");
@@ -15,7 +16,6 @@ const NewCategories = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (categories === "" || description === "") {
       setError("Please enter all fields");
       setSuccess("");
@@ -51,15 +51,19 @@ const NewCategories = () => {
   };
 
   // It upload the photo to AWS S3
-  const UploadPhoto = async (e) => {
-    e.preventDefault();
+  const UploadPhoto = async (files) => {
+    if (image) {
+      if (image.length > 1) {
+        setImage(null);
+      }
+    }
     // get file from input
-    const file = e.target.files[0];
-    if (!file) {
+
+    if (!files) {
       return;
     }
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", files);
     setUploading(true);
     try {
       const res = await axios.post(
@@ -82,40 +86,34 @@ const NewCategories = () => {
     <div className="w-full h-[calc(100vh-5rem)] flex flex-col  items-center dark:bg-gradient-to-tl dark:from-photeradark-950 dark:via-photeradark-800 dark:to-photeradark-400 p-2 rounded-l-lg ">
       <h1 className="self-start text-3xl font-light">New Categories</h1>
 
-      <div className="h-full w-full flex justify-center items-start">
-        <div className="dark:bg-photeradark-200 w-7/12 flex justify-center items-start rounded-lg text-photeradark-950">
-          <form className="w-5/12 flex flex-col gap-4 justify-center mt-4 text-2xl">
+      <div className="h-full w-full flex justify-center items-start sm:mt-2">
+        <div className="dark:bg-photeradark-200 w-7/12 sm:w-11/12 flex justify-center items-start rounded-lg text-photeradark-950">
+          <form className="w-5/12 sm:w-11/12 flex flex-col gap-4 justify-center mt-4 text-2xl">
             <label htmlFor="name" className="text-lg">
               Category name
             </label>
-            <input
+            <Input
               type="text"
-              placeholder="Category name"
+              label="Category name"
+              className="dark:text-white"
               value={categories}
-              className="border-2 border-gray-500 dark:text-white rounded-lg p-2 text-xl focus:outline-none focus:ring-2 focus:ring-photeradark-300 focus:border-transparent"
               onChange={(e) => {
                 setCategories(e.target.value);
               }}
             />
-            <input
+            <Input
               type="text"
+              label="Description"
               name="description"
-              placeholder="Description"
               minLength={2}
               maxLength={20}
               value={description}
               onChange={(e) => {
                 setDescription(e.target.value);
               }}
-              className="border-2 border-gray-500 dark:text-white rounded-lg p-2 text-xl focus:outline-none focus:ring-2 focus:ring-photeradark-300 focus:border-transparent"
+              className="dark:text-white"
             />
-            <input
-              type="file"
-              name="file"
-              accept="image/*"
-              onChange={UploadPhoto}
-              disabled={uploading}
-            />
+            <FileDropzone onFileChange={UploadPhoto} uploading={uploading} />
             <Button
               onClick={handleSubmit}
               color="primary"

@@ -2,8 +2,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import GoBackButton from "../GoBackButton";
+import { Button, Input, Select, SelectItem } from "@nextui-org/react";
+import { set } from "mongoose";
+
 
 const BansUsers = () => {
+  const [userId, setUserId] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [reason, setReason] = useState("");
@@ -15,22 +19,33 @@ const BansUsers = () => {
   useEffect(() => {
     const usersList = async () => {
       const res = await axios.get("/api/user/userslist", {
-        headers:{
+        headers: {
           "Cache-Control": "no-cache",
-        }
+        },
       });
       setUserList(res.data);
     };
     usersList();
   }, []);
 
-  const getUserEmail = () => {
+  const getUserData = (e) => {
+    setUserId(e.target.value);
+   
+  };
+
+  const handleEmail = () => {
     userList.map((user) => {
-      if (user.username === username) {
+      if (user._id === userId) {
         setEmail(user.email);
+        setUsername(user.username);
       }
     });
-  };
+  }
+
+  useEffect(() => {
+    handleEmail();
+  }, [userId]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,6 +59,7 @@ const BansUsers = () => {
       setUsername("");
       setEmail("");
       setReason("");
+      setUserId("");
     } else {
       setError(saved.data.message);
     }
@@ -59,27 +75,29 @@ const BansUsers = () => {
       <h3>{error}</h3>
       <h3>{success}</h3>
       <div className="h-full w-full flex justify-center items-start">
-        <div className="dark:bg-photeradark-200 w-7/12 flex justify-center items-start rounded-lg text-photeradark-950">
-          <form className="w-5/12 flex flex-col gap-4 justify-center mt-4 text-2xl dark:text-white">
+        <div className="dark:bg-photeradark-200 w-7/12 sm:w-11/12 flex justify-center items-start rounded-lg text-photeradark-950">
+          <form className="w-5/12 sm:w-11/12 flex flex-col gap-4 justify-center mt-4 text-2xl dark:text-white">
             <div className="w-full flex flex-col">
               <label
                 htmlFor="username"
                 className="text-base dark:text-photeradark-900">
                 Username
               </label>
-              <select
-                onClick={getUserEmail}
+              <Select
                 name="username"
+                label="Username to ban"
                 value={username}
-                className="border-2 border-gray-500 dark:text-white rounded-lg p-2 text-xl focus:outline-none focus:ring-2 focus:ring-photeradark-300 focus:border-transparent"
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                }}>
-                <option value="">Select User</option>
+                className="dark:text-white"
+                onChange={getUserData}>
                 {userList.map((user) => (
-                  <option key={user._id}>{user.username}</option>
+                  <SelectItem
+                    key={user._id}
+                    value={username}
+                    >
+                    {user.username}
+                  </SelectItem>
                 ))}
-              </select>
+              </Select>
             </div>
             <div className="w-full flex flex-col">
               <label
@@ -87,11 +105,11 @@ const BansUsers = () => {
                 className="text-base dark:text-photeradark-900">
                 Email
               </label>
-              <input
+              <Input
                 type="text"
+                label="Email"
                 name="email"
-                placeholder="Email"
-                className="border-2 border-gray-500 dark:text-white rounded-lg p-2 text-xl focus:outline-none focus:ring-2 focus:ring-photeradark-300 focus:border-transparent"
+                className="dark:text-white"
                 value={email}
                 disabled={true}
               />
@@ -102,22 +120,20 @@ const BansUsers = () => {
                 className="text-base dark:text-photeradark-900">
                 Reason
               </label>
-              <input
+              <Input
                 type="text"
+                label="Reason"
                 name="reason"
-                className="border-2 border-gray-500 dark:text-white rounded-lg p-2 text-xl focus:outline-none focus:ring-2 focus:ring-photeradark-300 focus:border-transparent"
-                placeholder="Reason"
+                className="dark:text-white"
                 value={reason}
                 onChange={(e) => {
                   setReason(e.target.value);
                 }}
               />
             </div>
-            <button
-              onClick={handleSubmit}
-              className="dark:bg-photeradark-900 bg-gray-300 dark:text-white  p-2 rounded-md mb-4">
+            <Button onClick={handleSubmit} color="primary" className="">
               Ban User
-            </button>
+            </Button>
             <div className="mb-2">
               {error && (
                 <div className="bg-red-500 p-1 text-base rounded-md flex justify-center items-center">
