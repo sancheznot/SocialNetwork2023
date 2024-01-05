@@ -16,12 +16,12 @@ export default function App() {
   const { data: session } = useSession();
 
   return (
-    <Navbar isBordered maxWidth="full"  className="h-16 w-full" >
+    <Navbar isBordered maxWidth="full"  className="h-16 sm:h-12 w-full" >
       <div className="flex justify-center items-center w-full">
         <div className="flex flex-row justify-between  md:w-11/12 items-center w-10/12">
           <NavbarBrand>
             <AcmeLogo />
-            <Link className="font-bold text-inherit" href="/">
+            <Link className="font-bold flex justify-center items-center text-inherit" href="/">
               Photera
             </Link>
           </NavbarBrand>
@@ -35,6 +35,7 @@ export default function App() {
                     }}
                     color="danger"
                     variant="ghost"
+                    size="sm"
                     className="sm:text-sm">
                     Log Out
                   </Button>

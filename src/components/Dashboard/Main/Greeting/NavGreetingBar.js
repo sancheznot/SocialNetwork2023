@@ -7,8 +7,8 @@ import CategoriesDash from "../CategoriesDash";
 
 const NavGreetingBar = () => {
   return (
-    <div className="flex w-full flex-col sm:items-center">
-      <Tabs aria-label="Options" size="sm" >
+    <div className="flex w-full flex-col ">
+      <Tabs aria-label="Options" size="sm">
         <Tab
           key="feed"
           title={
@@ -36,8 +36,8 @@ const NavGreetingBar = () => {
           }>
           <Card>
             <CardBody>
-            <div className="h-[calc(100vh-15rem)] overflow-auto scrollbar-hide">
-              <Feed />
+              <div className="h-[calc(100vh-13rem)] w-full overflow-auto scrollbar-hide">
+                <Feed />
               </div>
             </CardBody>
           </Card>
