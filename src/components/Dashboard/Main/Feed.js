@@ -40,7 +40,7 @@ const Feed = () => {
             <div
               key={item._id}
               className="group bg-white rounded-lg overflow-hidden shadow-lg relative">
-              <div className="relative w-full h-60">
+              <div className="relative w-full h-60 overflow-hidden">
                 {/* Utilizamos el componente Image de Next.js para optimización */}
                 <Image
                   src={item.url}
@@ -57,13 +57,14 @@ const Feed = () => {
                     <div
                       key={user._id}
                       className="absolute w-full sm:top-52 top-48 bg-transparent p-1 flex flex-col justify-center items-center">
-                      <div className="w-14 h-14 relative">
+                      <div className="w-14 h-14 relative overflow-hidden">
                         <Image
                           src={user.image}
                           layout="fill"
-                          objectFit="cover"
+                          objectFit="contain"
                           className="rounded-full shadow-sm shadow-photeradark-400"
                           alt="User profile"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                       </div>
                       <h2 className="text-sm font-medium dark:text-photeradark-900">
