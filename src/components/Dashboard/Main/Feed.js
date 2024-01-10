@@ -76,8 +76,9 @@ const Feed = () => {
               {/*  */}
               <Button
                 onPress={onOpen}
-                className="z-10"
+                className="z-10 ml-2"
                 key={item._id}
+                size="sm"
                 value={[item.url, item.title, item.user]}
                 onClick={(e) => {
                   getImageInfo(e);
@@ -148,7 +149,7 @@ const Feed = () => {
                           user._id === imageUser && (
                             <div
                               key={user._id}
-                              className=" w-full sm:top-52 top-48 bg-transparent p-1 flex flex-col justify-center items-center">
+                              className=" w-full bg-transparent p-1 flex flex-row justify-start gap-3 items-center">
                               <div className="w-14 h-14 relative overflow-hidden">
                                 <Image
                                   src={user.image}
@@ -156,7 +157,6 @@ const Feed = () => {
                                   objectFit="contain"
                                   className="rounded-full shadow-sm shadow-photeradark-400"
                                   alt="User profile"
-                                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                 />
                               </div>
                               <h2 className="text-sm font-medium dark:text-photeradark-900">
