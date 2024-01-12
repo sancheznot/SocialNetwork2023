@@ -34,7 +34,7 @@ const UserSchema = new Schema({
   },
   photoFav: {
     type: [Schema.Types.ObjectId],
-    ref: "Photo",
+    ref: "Photos",
   },
   isAdmin: {
     type: Boolean,

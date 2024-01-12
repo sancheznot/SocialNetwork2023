@@ -6,14 +6,13 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   Button,
   useDisclosure,
   Tooltip,
 } from "@nextui-org/react";
 import { CardSkeleton } from "@/components/NextUI/CardSkeleton";
 
-const Feed = ({ session }) => {
+const FavoritesPublic = ({ session }) => {
   const [currentUserID, setUser] = useState(session?.user._id);
   const [photoFav, setPhotoFav] = useState([]);
   const [actList, setActList] = useState(false);
@@ -49,13 +48,17 @@ const Feed = ({ session }) => {
       const res = await axios.get("/api/user/userslist");
       setUsers(res.data);
     };
-    const getFeed = async () => {
-      const res = await axios.get("/api/user/uploads/publication");
-      setFeed(res.data.photos);
-    };
+    if (photoFav.length > 0) {
+      const getFeedFav = async () => {
+        const res = await axios.get(
+          `/api/user/uploads/publicationbyid/${photoFav}`
+        );
+        setFeed(res.data.FavoritePost);
+      };
+      getFeedFav();
+    }
     getUser();
-    getFeed();
-  }, []);
+  }, [photoFav]);
 
   useEffect(() => {
     if (feed.length > 0) {
@@ -82,6 +85,7 @@ const Feed = ({ session }) => {
       setActList(!actList);
     }
   };
+  //   This is the code that I make to delete the image from the favorites list
   const deleteToFav = async () => {
     const deleteData = await axios.delete(
       `/api/user/uploads/favpublibyid/${currentUserID}/${imageId}`
@@ -261,4 +265,4 @@ const Feed = ({ session }) => {
   );
 };
 
-export default Feed;
+export default FavoritesPublic;

@@ -5,7 +5,7 @@ import Feed from "../Feed";
 import LeftSideBar from "../../PhotoUploads/LeftSideBar";
 import CategoriesDash from "../CategoriesDash";
 
-const NavGreetingBar = () => {
+const NavGreetingBar = ({session}) => {
   return (
     <div className="flex w-full flex-col ">
       <Tabs aria-label="Options" size="sm">
@@ -37,7 +37,7 @@ const NavGreetingBar = () => {
           <Card>
             <CardBody>
               <div className="h-[calc(100vh-13rem)] w-full overflow-auto scrollbar-hide">
-                <Feed />
+                <Feed session={session}/>
               </div>
             </CardBody>
           </Card>
