@@ -36,7 +36,7 @@ const NavGreetingBar = ({session}) => {
           }>
           <Card>
             <CardBody>
-              <div className="h-[calc(100vh-13rem)] w-full overflow-auto scrollbar-hide">
+              <div className="h-[calc(100vh-16rem)] sm:h-[calc(100vh-15rem)] w-full overflow-auto scrollbar-hide">
                 <Feed session={session}/>
               </div>
             </CardBody>
