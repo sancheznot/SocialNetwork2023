@@ -22,7 +22,7 @@ const FeedCard = ({
   photoFav,
   currentUserID,
   setActList,
-  actList
+  actList,
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [imageModal, setImageModal] = useState("");
@@ -85,6 +85,9 @@ const FeedCard = ({
                 key={item._id}
                 size="sm"
                 value={[item.url, item.title, item.user, item._id]}
+                onTouchEnd={(e) => {
+                  getImageInfo(e);
+                }}
                 onClick={(e) => {
                   getImageInfo(e);
                 }}>
