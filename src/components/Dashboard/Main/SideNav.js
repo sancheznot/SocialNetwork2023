@@ -5,7 +5,6 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import PhotoUser from "./PhotoUser";
-import ButtonSideNav from "@/components/NextUI/ButtonSideNav";
 
 const SideNav = () => {
   const { data: session } = useSession();
