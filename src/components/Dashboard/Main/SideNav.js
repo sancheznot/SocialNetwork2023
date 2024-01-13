@@ -73,7 +73,6 @@ const SideNav = () => {
         <div className="flex flex-row gap-5">
           <Nav session={session} />
         </div>
-        <ThemeSwitcher/>
       </div>
     </>
   );

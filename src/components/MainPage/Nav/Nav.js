@@ -16,7 +16,7 @@ export default function App() {
   const { data: session } = useSession();
 
   return (
-    <Navbar isBordered maxWidth="full"  className="h-16 sm:h-12 w-full md:hidden" >
+    <Navbar isBordered maxWidth="full"  className="h-16 sm:h-9 w-full " >
       <div className="flex justify-center items-center w-full">
         <div className="flex flex-row justify-between  md:w-11/12 items-center w-10/12">
           <NavbarBrand>
@@ -36,7 +36,7 @@ export default function App() {
                     color="danger"
                     variant="ghost"
                     size="sm"
-                    className="sm:text-sm">
+                    className="sm:text-sm sm:p-1">
                     Log Out
                   </Button>
                 </NavbarItem>
