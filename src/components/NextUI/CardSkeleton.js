@@ -1,9 +1,16 @@
 import React from "react";
-import {  Skeleton } from "@nextui-org/react";
+import { Button, Skeleton } from "@nextui-org/react";
+import { useParams, usePathname } from "next/navigation";
 
 export const CardSkeleton = () => {
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 , 14, 15];
+  const pathname = usePathname();
+  const params = useParams();
 
+  let arr = new Array(15).fill(0);
+
+  if (pathname === `/categories/${params.id}`) {
+    arr = new Array(10).fill(0);
+  }
   return (
     <>
       {arr.map((item) => (
@@ -16,9 +23,10 @@ export const CardSkeleton = () => {
             </Skeleton>
           </div>
 
+          <Skeleton className=" p-2 ml-2 mt-2 h-7 w-16 rounded-lg" />
           <div className="absolute w-full  sm:top-52 top-48 bg-transparent p-1 flex flex-col justify-center items-center">
             <Skeleton className="flex rounded-full w-12 h-12" />
-            <Skeleton className="h-3 w-5/12 rounded-lg"/>
+            <Skeleton className="h-3 w-5/12 rounded-lg" />
           </div>
           <div className="p-4 mt-5 sm:mt-6 xl:mt-3">
             <p className="text-gray-600 font-light text-lg text-justify">
