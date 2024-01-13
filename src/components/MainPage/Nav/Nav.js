@@ -16,7 +16,7 @@ export default function App() {
   const { data: session } = useSession();
 
   return (
-    <Navbar isBordered maxWidth="full"  className="h-16 sm:h-12 w-full lg:hidden" >
+    <Navbar isBordered maxWidth="full"  className="h-16 sm:h-12 w-full md:hidden" >
       <div className="flex justify-center items-center w-full">
         <div className="flex flex-row justify-between  md:w-11/12 items-center w-10/12">
           <NavbarBrand>

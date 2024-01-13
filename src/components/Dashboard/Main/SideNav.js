@@ -5,6 +5,7 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import PhotoUser from "./PhotoUser";
+import { ThemeSwitcher } from "@/components/NextTheme/ThemeSwitcher";
 
 const SideNav = () => {
   const { data: session } = useSession();
@@ -68,10 +69,11 @@ const SideNav = () => {
       {/* phone and tablets */}
       <div
         className="bg-gradient-to-tl lgg:hidden dark:from-photeradark-900 dark:via-photeradark-800 dark:to-photeradark-700 
-    w-full col-span-12 rounded-tr-lg h-16 overflow-auto flex flex-row justify-center items-center absolute bottom-0 z-20">
+    w-full col-span-12 rounded-t-lg h-16 overflow-auto flex flex-row justify-center items-center absolute bottom-0 z-20">
         <div className="flex flex-row gap-5">
           <Nav session={session} />
         </div>
+        <ThemeSwitcher/>
       </div>
     </>
   );
