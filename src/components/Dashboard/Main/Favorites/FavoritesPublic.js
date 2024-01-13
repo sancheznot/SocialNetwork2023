@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import FeedCard from "../FeedCard/FeedCard";
+import { Card, CardBody, Tab, Tabs } from "@nextui-org/react";
 
 const FavoritesPublic = ({ session }) => {
   const [currentUserID, setUser] = useState(session?.user._id);
@@ -27,7 +28,6 @@ const FavoritesPublic = ({ session }) => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-
   useEffect(() => {
     setIsLoading(true);
     const getUser = async () => {
@@ -52,10 +52,21 @@ const FavoritesPublic = ({ session }) => {
     }
   }, [feed]);
 
-
   return (
     <>
-    <FeedCard isLoading={isLoading} feed={feed} users={users} photoFav={photoFav} currentUserID={currentUserID} setActList={setActList} actList={actList}/>
+      <div className="flex w-full flex-col ">
+        <div className="h-[calc(100vh-11rem)] w-full overflow-auto scrollbar-hide">
+          <FeedCard
+            isLoading={isLoading}
+            feed={feed}
+            users={users}
+            photoFav={photoFav}
+            currentUserID={currentUserID}
+            setActList={setActList}
+            actList={actList}
+          />
+        </div>
+      </div>
     </>
   );
 };
