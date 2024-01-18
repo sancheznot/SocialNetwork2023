@@ -10,6 +10,10 @@ export const metadata = {
   maximumScale: 1,
   minimumScale: 1,
   userScalable: "no",
+  manifest: "/manifest.json",
+  icons: {
+    apple: "/icon.png",
+  },
   // Also supported by less commonly used
   // interactiveWidget: 'resizes-visual',
 };

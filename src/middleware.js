@@ -5,6 +5,7 @@ export const config = {
     "/dashboard/:path*",
     "/follow/:path*",
     "/favorite/:path*",
+    "/categories/:path*",
     "/upload/:path*",
     "/sudo/:path*",
   ],
