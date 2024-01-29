@@ -36,6 +36,10 @@ const UserSchema = new Schema({
     type: [Schema.Types.ObjectId],
     ref: "Photos",
   },
+  Follow: {
+    type: Schema.Types.ObjectId,
+    ref: "Follow",
+  },
   isAdmin: {
     type: Boolean,
     default: false,
