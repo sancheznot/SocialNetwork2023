@@ -189,9 +189,10 @@ const FeedCard = ({
                                 duration: 1000,
                                 isClosable: true,
                                 TimeRanges: 1000,
+                                position: 'top-right',
                                 render: () => (
-                                  <Box className="bg-photeradark-700 p-3 sm:p-1 rounded-xl flex flex-row justify-center gap-3 sm:mb-0 mb-20 items-center">
-                                    <div className="w-12 h-12 border border-photeradark-300 rounded-full text-lg flex justify-center items-center">
+                                  <Box className="bg-photeradark-700 p-3 sm:p-1 sm:py-3 rounded-xl flex flex-row justify-center gap-3 sm:mt-0 mt-20 items-center">
+                                    <div className="w-12 h-12 sm:w-6 sm:h-6 border border-photeradark-300 rounded-full text-lg flex justify-center items-center">
                                       <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
@@ -206,7 +207,7 @@ const FeedCard = ({
                                         />
                                       </svg>
                                     </div>
-                                    <p className="text-lg">
+                                    <p className="text-lg sm:text-base">
                                       Removed from favorites.
                                     </p>
                                   </Box>
@@ -239,9 +240,10 @@ const FeedCard = ({
                                 status: "success",
                                 duration: 1000,
                                 isClosable: true,
+                                position: 'top-right',
                                 render: () => (
-                                  <Box className="bg-photeradark-700 p-3 sm:p-1 rounded-xl flex flex-row justify-center gap-3 sm:mb-0 mb-20 items-center">
-                                    <div className="w-12 h-12 border border-photeradark-300 rounded-full text-lg flex justify-center items-center">
+                                  <Box className="bg-photeradark-700 p-3 sm:p-1 sm:py-3 rounded-xl flex flex-row justify-center gap-3 sm:mt-0 mt-20 items-center">
+                                    <div className="w-12 h-12 sm:w-6 sm:h-6 border border-photeradark-300 rounded-full text-lg flex justify-center items-center">
                                       <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
@@ -256,7 +258,7 @@ const FeedCard = ({
                                         />
                                       </svg>
                                     </div>
-                                    <p className="text-lg">Add to favorites.</p>
+                                    <p className="text-lg sm:text-base">Add to favorites.</p>
                                   </Box>
                                 ),
                               })
