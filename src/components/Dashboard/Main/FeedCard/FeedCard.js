@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import {
   Modal,
@@ -9,11 +9,9 @@ import {
   Button,
   useDisclosure,
   Tooltip,
-  CardHeader,
-  Card,
 } from "@nextui-org/react";
 import { CardSkeleton } from "@/components/NextUI/CardSkeleton";
-import { usePathname, useParams } from "next/navigation";
+import { Box, useToast } from "@chakra-ui/react";
 
 const FeedCard = ({
   isLoading,
@@ -29,6 +27,8 @@ const FeedCard = ({
   const [imageTitle, setImageTitle] = useState("");
   const [imageUser, setImageUser] = useState("");
   const [imageId, setImageId] = useState("");
+
+  const toast = useToast();
 
   const getImageInfo = (e) => {
     const data = e.target.value;
@@ -181,7 +181,38 @@ const FeedCard = ({
                             size="sm"
                             className="w-1/12 bg-photeradark-500"
                             onPress={(e) => deleteToFav(e)}
-                            value={imageId}>
+                            value={imageId}
+                            onClick={() =>
+                              toast({
+                                title: "Removed from favorites.",
+                                status: "success",
+                                duration: 1000,
+                                isClosable: true,
+                                TimeRanges: 1000,
+                                render: () => (
+                                  <Box className="bg-photeradark-700 p-3 sm:p-1 rounded-xl flex flex-row justify-center gap-3 sm:mb-0 mb-20 items-center">
+                                    <div className="w-12 h-12 border border-photeradark-300 rounded-full text-lg flex justify-center items-center">
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-6 h-6">
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          d="m4.5 12.75 6 6 9-13.5"
+                                        />
+                                      </svg>
+                                    </div>
+                                    <p className="text-lg">
+                                      Removed from favorites.
+                                    </p>
+                                  </Box>
+                                ),
+                              })
+                            }>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               viewBox="0 0 24 24"
@@ -202,6 +233,34 @@ const FeedCard = ({
                             size="sm"
                             className="w-1/12 bg-photeradark-500"
                             onPress={(e) => saveToFav(e)}
+                            onClick={() =>
+                              toast({
+                                title: "Add to favorites.",
+                                status: "success",
+                                duration: 1000,
+                                isClosable: true,
+                                render: () => (
+                                  <Box className="bg-photeradark-700 p-3 sm:p-1 rounded-xl flex flex-row justify-center gap-3 sm:mb-0 mb-20 items-center">
+                                    <div className="w-12 h-12 border border-photeradark-300 rounded-full text-lg flex justify-center items-center">
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-6 h-6">
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          d="m4.5 12.75 6 6 9-13.5"
+                                        />
+                                      </svg>
+                                    </div>
+                                    <p className="text-lg">Add to favorites.</p>
+                                  </Box>
+                                ),
+                              })
+                            }
                             value={imageId}>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
