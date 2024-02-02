@@ -1,66 +1,27 @@
-import axios from "axios";
-import React, { useState } from "react";
-import Image from "next/image";
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  Button,
-  useDisclosure,
-  Tooltip,
-} from "@nextui-org/react";
 import { CardSkeleton } from "@/components/NextUI/CardSkeleton";
 import { Box, useToast } from "@chakra-ui/react";
-import Link from "next/link";
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalHeader,
+  Tooltip,
+  useDisclosure,
+} from "@nextui-org/react";
+import Image from "next/image";
+import React from "react";
 
-const FeedCard = ({
-  isLoading,
-  feed,
-  users,
-  photoFav,
-  currentUserID,
-  setActList,
-  actList,
-}) => {
+const FeedCardUser = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [imageModal, setImageModal] = useState("");
-  const [imageTitle, setImageTitle] = useState("");
-  const [imageUser, setImageUser] = useState("");
-  const [imageId, setImageId] = useState("");
-
   const toast = useToast();
 
-  const getImageInfo = (e) => {
-    const data = e.target.value;
-    const splitdata = data.split(",");
-    const [url, title, user, imageIdData] = splitdata;
-    setImageModal(url);
-    setImageTitle(title);
-    setImageUser(user);
-    setImageId(imageIdData);
-  };
-
-  const saveToFav = async () => {
-    const saved = await axios.put("/api/user/uploads/favpublic", {
-      _id: currentUserID,
-      imageId: imageId,
-    });
-    if (saved) {
-      setActList(!actList);
-    }
-  };
-  const deleteToFav = async () => {
-    const deleteData = await axios.delete(
-      `/api/user/uploads/favpublibyid/${currentUserID}/${imageId}`
-    );
-    if (deleteData) {
-      setActList(!actList);
-    }
-  };
+  const feed = new Array(12).fill(0);
+  const users = new Array(12).fill(0);
+  const isLoading = false;
 
   return (
-    <div className="grid w-full overflow-auto sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5 gap-4 p-4">
+    <div className="grid w-full overflow-auto sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5 gap-4 p-4">
       {isLoading ? (
         <CardSkeleton />
       ) : (
@@ -69,7 +30,7 @@ const FeedCard = ({
             <div
               key={item._id}
               className="group bg-white rounded-lg overflow-hidden shadow-lg relative">
-              <div className="relative w-full h-60 overflow-hidden">
+              <div className="relative w-full sm:h-[10rem] h-56 overflow-hidden">
                 {/* Utilizamos el componente Image de Next.js para optimización */}
                 <Image
                   src={item.url}
@@ -82,7 +43,7 @@ const FeedCard = ({
               {/*  */}
               <Button
                 onPress={onOpen}
-                className="z-10 ml-2"
+                className="z-10 ml-2 my-2"
                 key={item._id}
                 size="sm"
                 value={[item.url, item.title, item.user, item._id]}
@@ -101,8 +62,8 @@ const FeedCard = ({
                   user._id === item.user && (
                     <div
                       key={user._id}
-                      className="absolute w-full sm:top-52 top-48 bg-transparent p-1 flex flex-col justify-center items-center">
-                      <div className="w-14 h-14 relative overflow-hidden">
+                      className="absolute w-full sm:top-[10.3rem] sm:left-16 top-48 bg-transparent p-1 flex flex-col justify-center items-center">
+                      <div className="w-14 h-14 sm:w-7 sm:h-7 relative overflow-hidden">
                         <Image
                           src={user.image}
                           layout="fill"
@@ -112,20 +73,10 @@ const FeedCard = ({
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                       </div>
-                      <Link
-                        href={`/profile/${user.username}`}
-                        className="text-sm font-medium dark:text-photeradark-900">
-                        {user.username}
-                      </Link>
+                      
                     </div>
                   )
               )}
-              {/* Información del usuario y título */}
-              <div className="p-4 mt-5 sm:mt-6 xl:mt-3">
-                <p className="text-gray-600 font-light text-lg text-justify">
-                  {item.title}
-                </p>
-              </div>
             </div>
           ))}
           <Modal
@@ -297,4 +248,4 @@ const FeedCard = ({
   );
 };
 
-export default FeedCard;
+export default FeedCardUser;
