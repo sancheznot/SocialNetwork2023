@@ -7,12 +7,16 @@ import Follows from "./Follows";
 import Image from "next/image";
 import logoPhotera from "@pb/img/nobgLogo.png";
 import { useSession } from "next-auth/react";
+import { get } from "mongoose";
 
 const Header = ({ username }) => {
+  // user data of the user in session
   const { data: session } = useSession();
   const [userInSession, setUserInSession] = useState(session?.user.username);
+  const [isUser, setIsUser] = useState(false);
+  // user data of the user profile
+  const [userProfileID, setUserProfileID] = useState("");
   const [userImage, setUserImage] = useState("");
-  const [user, setUser] = useState(username || "");
   const [userImageToshow, setUserImageToshow] = useState("");
   const [userName, setUserName] = useState("");
   const [userLastName, setUserLastName] = useState("");
@@ -20,13 +24,14 @@ const Header = ({ username }) => {
   const [userFollowing, setUserFollowing] = useState([]);
   const [userLeyend, setUserLeyend] = useState("");
   const [userFavPhoto, setUserFavPhoto] = useState("");
-  const [isUser, setIsUser] = useState(false);
+  const [updateData, setUpdateData] = useState(false);
 
   useEffect(() => {
     if (!username) return;
     const getUserData = async () => {
       try {
-        const res = await axios(`/api/user/profile/${username}`);
+        const res = await axios.get(`/api/user/profile/${username}`);
+        setUserProfileID(res.data.user._id);
         setUserImage(res.data.user.image);
         setUserImageToshow(res.data.user.imageProfileView);
         setUserName(res.data.user.name);
@@ -43,7 +48,10 @@ const Header = ({ username }) => {
     if (userInSession === username) {
       setIsUser(true);
     }
-  }, [username, userInSession]);
+    if (!updateData) {
+      getUserData();
+    }
+  }, [username, userInSession, updateData]);
 
   return (
     <div className="flex flex-col gap-9 sm:gap-5">
@@ -64,10 +72,13 @@ const Header = ({ username }) => {
         </div>
         <LeyendProfile leyendProfile={userLeyend} />
         <Follows
+          userProfileID={userProfileID}
+          setUpdateDataProfile={setUpdateData}
+          updateDataProfile={updateData}
           followers={userFollowers}
           following={userFollowing}
           userfav={userFavPhoto}
-          userenSession={userInSession}
+          userinSession={userInSession}
           isUser={isUser}
           username={username}
         />
