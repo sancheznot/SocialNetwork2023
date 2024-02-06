@@ -166,17 +166,24 @@ const FeedCard = ({
                                 key={user._id}
                                 className=" w-full bg-transparent p-1 flex flex-row justify-start gap-3 items-center">
                                 <div className="w-14 h-14 relative overflow-hidden">
-                                  <Image
-                                    src={user.image}
-                                    layout="fill"
-                                    objectFit="contain"
-                                    className="rounded-full shadow-sm shadow-photeradark-400"
-                                    alt="User profile"
-                                  />
+                                  <Link
+                                    href={`/profile/${user.username}`}
+                                    className="text-sm font-medium dark:text-photeradark-900">
+                                    <Image
+                                      src={user.image}
+                                      layout="fill"
+                                      objectFit="contain"
+                                      className="rounded-full shadow-sm shadow-photeradark-400"
+                                      alt="User profile"
+                                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    />
+                                  </Link>
                                 </div>
-                                <h2 className="text-sm font-medium dark:text-photeradark-900">
+                                <Link
+                                  href={`/profile/${user.username}`}
+                                  className="text-sm font-medium dark:text-photeradark-300">
                                   {user.username}
-                                </h2>
+                                </Link>
                               </div>
                             )
                         )}

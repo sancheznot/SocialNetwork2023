@@ -12,6 +12,7 @@ import {
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const FeedCardUser = ({ username }) => {
@@ -167,17 +168,24 @@ const FeedCardUser = ({ username }) => {
                       <p>
                         <div className=" w-full bg-transparent p-1 flex flex-row justify-start gap-3 items-center">
                           <div className="w-14 h-14 sm:w-10 sm:h-10 relative overflow-hidden">
-                            <Image
-                              src={userImage}
-                              layout="fill"
-                              objectFit="contain"
-                              className="rounded-full shadow-sm shadow-photeradark-400"
-                              alt="User profile"
-                            />
+                            <Link
+                              href={`/profile/${username}`}
+                              className="text-sm font-medium dark:text-photeradark-900">
+                              <Image
+                                src={userImage}
+                                layout="fill"
+                                objectFit="contain"
+                                className="rounded-full shadow-sm shadow-photeradark-400"
+                                alt="User profile"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                              />
+                            </Link>
                           </div>
-                          <h2 className="text-sm font-medium dark:text-photeradark-900">
+                          <Link
+                            href={`/profile/${username}`}
+                            className="text-sm font-medium dark:text-photeradark-300">
                             {username}
-                          </h2>
+                          </Link>
                         </div>
                       </p>
                       {photoFav?.includes(imageId) ? (

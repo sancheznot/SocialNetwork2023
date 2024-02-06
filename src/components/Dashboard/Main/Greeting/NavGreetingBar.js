@@ -4,6 +4,7 @@ import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 import Feed from "../Feed";
 import LeftSideBar from "../../PhotoUploads/LeftSideBar";
 import CategoriesDash from "../CategoriesDash";
+import Following from "../Following/Following";
 
 const NavGreetingBar = ({session}) => {
   return (
@@ -95,8 +96,9 @@ const NavGreetingBar = ({session}) => {
           }>
           <Card>
             <CardBody>
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-              officia deserunt mollit anim id est laborum.
+            <div className="h-[calc(100vh-16rem)] sm:h-[calc(100vh-15rem)] w-full overflow-auto scrollbar-hide">
+                <Following session={session}/>
+              </div>
             </CardBody>
           </Card>
         </Tab>
