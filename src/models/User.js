@@ -36,10 +36,14 @@ const UserSchema = new Schema({
     type: [Schema.Types.ObjectId],
     ref: "Photos",
   },
-  Follow: {
+  following: [{
     type: Schema.Types.ObjectId,
-    ref: "Follow",
-  },
+    ref: "User"
+  }],
+  followers: [{
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  }],
   isAdmin: {
     type: Boolean,
     default: false,

@@ -7,6 +7,7 @@ export const config = {
     "/favorite/:path*",
     "/categories/:path*",
     "/upload/:path*",
+    "/profile/:path*",
     "/sudo/:path*",
   ],
   basePath: "/api/auth",

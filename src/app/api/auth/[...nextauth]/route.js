@@ -52,6 +52,8 @@ const handler = NextAuth({
         token.user.lastname = sessionUser.lastname;
         token.user.username = sessionUser.username;
         token.user.photoFav = sessionUser.photoFav;
+        token.user.following = sessionUser.following;
+        token.user.followers = sessionUser.followers;
         token.user.isAdmin = sessionUser.isAdmin;
         token.user.createdAt = sessionUser.createdAt;
       }

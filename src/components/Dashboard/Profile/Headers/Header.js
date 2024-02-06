@@ -6,17 +6,21 @@ import axios from "axios";
 import Follows from "./Follows";
 import Image from "next/image";
 import logoPhotera from "@pb/img/nobgLogo.png";
-import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const Header = ({ username }) => {
+  const { data: session } = useSession();
+  const [userInSession, setUserInSession] = useState(session?.user.username);
   const [userImage, setUserImage] = useState("");
   const [user, setUser] = useState(username || "");
   const [userImageToshow, setUserImageToshow] = useState("");
   const [userName, setUserName] = useState("");
   const [userLastName, setUserLastName] = useState("");
-  const [userFollowers, setUserFollowers] = useState("");
-  const [userFollowing, setUserFollowing] = useState("");
+  const [userFollowers, setUserFollowers] = useState([]);
+  const [userFollowing, setUserFollowing] = useState([]);
   const [userLeyend, setUserLeyend] = useState("");
+  const [userFavPhoto, setUserFavPhoto] = useState("");
+  const [isUser, setIsUser] = useState(false);
 
   useEffect(() => {
     if (!username) return;
@@ -30,15 +34,19 @@ const Header = ({ username }) => {
         setUserFollowers(res.data.user.followers);
         setUserFollowing(res.data.user.following);
         setUserLeyend(res.data.user.leyend);
+        setUserFavPhoto(res.data.user.photoFav.length);
       } catch (error) {
         return error;
       }
     };
     getUserData();
-  }, [username]);
+    if (userInSession === username) {
+      setIsUser(true);
+    }
+  }, [username, userInSession]);
 
   return (
-    <div className="flex flex-col gap-9">
+    <div className="flex flex-col gap-9 sm:gap-5">
       <div className="flex flex-col gap-2 justify-center items-center w-full">
         <PhotoToShow userimageToshow={userImageToshow} />
         <PhotoProfile imageProfile={userImage} />
@@ -55,7 +63,14 @@ const Header = ({ username }) => {
           <p className="sm:text-sm">{username}</p>
         </div>
         <LeyendProfile leyendProfile={userLeyend} />
-        <Follows followers={userFollowers} following={userFollowing} />
+        <Follows
+          followers={userFollowers}
+          following={userFollowing}
+          userfav={userFavPhoto}
+          userenSession={userInSession}
+          isUser={isUser}
+          username={username}
+        />
       </div>
     </div>
   );
