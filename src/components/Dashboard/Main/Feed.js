@@ -1,17 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Button,
-  useDisclosure,
-  Tooltip,
-} from "@nextui-org/react";
-import { CardSkeleton } from "@/components/NextUI/CardSkeleton";
+
+import { useDisclosure } from "@nextui-org/react";
 import FeedCard from "./FeedCard/FeedCard";
 
 const Feed = ({ session }) => {
@@ -40,7 +30,6 @@ const Feed = ({ session }) => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-
   useEffect(() => {
     setIsLoading(true);
     const getUser = async () => {
@@ -61,13 +50,19 @@ const Feed = ({ session }) => {
     }
   }, [feed]);
 
-  
-
   return (
     <>
-      <FeedCard isLoading={isLoading} feed={feed} users={users} photoFav={photoFav} currentUserID={currentUserID} setActList={setActList} actList={actList}/>
+      <FeedCard
+        isLoading={isLoading}
+        feed={feed}
+        users={users}
+        photoFav={photoFav}
+        currentUserID={currentUserID}
+        setActList={setActList}
+        actList={actList}
+      />
     </>
-  )
+  );
 };
 
 export default Feed;

@@ -9,16 +9,82 @@ import {
   Tooltip,
   useDisclosure,
 } from "@nextui-org/react";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const FeedCardUser = () => {
+const FeedCardUser = ({ username }) => {
+  const { data: session } = useSession();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const toast = useToast();
+  const [currentUserID, setUser] = useState(session?.user._id);
+  const [userImage, setUserImage] = useState("");
+  const [feed, setFeed] = useState([]);
+  const [imageModal, setImageModal] = useState("");
+  const [imageTitle, setImageTitle] = useState("");
+  const [imageId, setImageId] = useState("");
+  const [photoFav, setPhotoFav] = useState([]);
+  const [actList, setActList] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const feed = new Array(12).fill(0);
-  const users = new Array(12).fill(0);
-  const isLoading = false;
+  useEffect(() => {
+    const GetdataUser = async () => {
+      try {
+        const res = await axios(`/api/user/profile/${username}`);
+        setUserImage(res.data.user.image);
+        setFeed(res.data.userPublic);
+      } catch (error) {
+        return error;
+      }
+    };
+    GetdataUser();
+  }, [username]);
+
+  useEffect(() => {
+    const getPhotoFav = async () => {
+      const res = await axios.get(
+        `/api/user/uploads/favpublibyid/${currentUserID}`
+      );
+      setPhotoFav(res.data);
+    };
+    if (session) {
+      setUser(session?.user._id);
+      getPhotoFav();
+    }
+    if (actList) {
+      getPhotoFav();
+    }
+  }, [session, currentUserID, actList]);
+
+  const getImageInfo = (e) => {
+    const data = e.target.value;
+    const splitdata = data.split(",");
+    const [url, title, imageIdData] = splitdata;
+    setImageModal(url);
+    setImageTitle(title);
+    setImageId(imageIdData);
+  };
+
+  const saveToFav = async () => {
+    const saved = await axios.put("/api/user/uploads/favpublic", {
+      _id: currentUserID,
+      imageId: imageId,
+    });
+    if (saved) {
+      setActList(!actList);
+    }
+  };
+  const deleteToFav = async () => {
+    const deleteData = await axios.delete(
+      `/api/user/uploads/favpublibyid/${currentUserID}/${imageId}`
+    );
+    if (deleteData) {
+      setActList(!actList);
+    }
+  };
+
+  if (!username) return <div className="text-5xl">No user</div>;
 
   return (
     <div className="grid w-full overflow-auto sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5 gap-4 p-4">
@@ -30,7 +96,7 @@ const FeedCardUser = () => {
             <div
               key={item._id}
               className="group bg-white rounded-lg overflow-hidden shadow-lg relative">
-              <div className="relative w-full sm:h-[10rem] h-56 overflow-hidden">
+              <div className="relative w-full sm:h-[10.3rem] h-56 overflow-hidden">
                 {/* Utilizamos el componente Image de Next.js para optimización */}
                 <Image
                   src={item.url}
@@ -46,7 +112,7 @@ const FeedCardUser = () => {
                 className="z-10 ml-2 my-2"
                 key={item._id}
                 size="sm"
-                value={[item.url, item.title, item.user, item._id]}
+                value={[item.url, item.title, item._id]}
                 onTouchEnd={(e) => {
                   getImageInfo(e);
                 }}
@@ -57,26 +123,19 @@ const FeedCardUser = () => {
               </Button>
 
               {/*  */}
-              {users.map(
-                (user) =>
-                  user._id === item.user && (
-                    <div
-                      key={user._id}
-                      className="absolute w-full sm:top-[10.3rem] sm:left-16 top-48 bg-transparent p-1 flex flex-col justify-center items-center">
-                      <div className="w-14 h-14 sm:w-7 sm:h-7 relative overflow-hidden">
-                        <Image
-                          src={user.image}
-                          layout="fill"
-                          objectFit="contain"
-                          className="rounded-full shadow-sm shadow-photeradark-400"
-                          alt="User profile"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
-                      </div>
-                      
-                    </div>
-                  )
-              )}
+
+              <div className="absolute w-full sm:top-[10.3rem] sm:left-16 top-48 bg-transparent p-1 flex flex-col justify-center items-center">
+                <div className="w-14 h-14 sm:w-7 sm:h-7 relative overflow-hidden">
+                  <Image
+                    src={userImage}
+                    layout="fill"
+                    objectFit="contain"
+                    className="rounded-full shadow-sm shadow-photeradark-400"
+                    alt="User profile"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                </div>
+              </div>
             </div>
           ))}
           <Modal
@@ -89,7 +148,7 @@ const FeedCardUser = () => {
               {(onClose) => (
                 <>
                   <ModalHeader className="flex flex-col gap-1">
-                    <h2 className="text-2xl font-light dark:text-gray-200">
+                    <h2 className="text-2xl sm:text-xl font-light dark:text-gray-200">
                       {imageTitle}
                     </h2>
                   </ModalHeader>
@@ -106,27 +165,20 @@ const FeedCardUser = () => {
 
                     <div className="w-full flex flex-row justify-between items-center">
                       <p>
-                        {users.map(
-                          (user) =>
-                            user._id === imageUser && (
-                              <div
-                                key={user._id}
-                                className=" w-full bg-transparent p-1 flex flex-row justify-start gap-3 items-center">
-                                <div className="w-14 h-14 relative overflow-hidden">
-                                  <Image
-                                    src={user.image}
-                                    layout="fill"
-                                    objectFit="contain"
-                                    className="rounded-full shadow-sm shadow-photeradark-400"
-                                    alt="User profile"
-                                  />
-                                </div>
-                                <h2 className="text-sm font-medium dark:text-photeradark-900">
-                                  {user.username}
-                                </h2>
-                              </div>
-                            )
-                        )}
+                        <div className=" w-full bg-transparent p-1 flex flex-row justify-start gap-3 items-center">
+                          <div className="w-14 h-14 sm:w-10 sm:h-10 relative overflow-hidden">
+                            <Image
+                              src={userImage}
+                              layout="fill"
+                              objectFit="contain"
+                              className="rounded-full shadow-sm shadow-photeradark-400"
+                              alt="User profile"
+                            />
+                          </div>
+                          <h2 className="text-sm font-medium dark:text-photeradark-900">
+                            {username}
+                          </h2>
+                        </div>
                       </p>
                       {photoFav?.includes(imageId) ? (
                         <Tooltip content="Remove from favorites">

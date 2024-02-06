@@ -5,7 +5,7 @@ import FeedCardUser from "./Feed/FeedCardUser";
 
 const Main = ({ username }) => {
   if (!username) return <div className="text-5xl">No user</div>;
-
+  
   return (
     <>
       <Header username={username} />
