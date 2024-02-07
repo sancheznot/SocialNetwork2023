@@ -1,10 +1,65 @@
-import React from 'react'
+import axios from "axios";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 
-const FollowingCard = ({arrayID}) => {
+const FollowingCard = ({ arrayID }) => {
+  const [users, setUsers] = useState([]);
+  const [following, setFollowing] = useState([]);
+  const [followers, setFollowers] = useState([]);
+  const [username, setUsername] = useState("");
+  const [userAvatar, setUserAvatar] = useState("");
+
+  useEffect(() => {
+    if (arrayID.length <= 0) return;
+    const getFollowing = async () => {
+      try {
+        const res = await axios.post(`/api/user/userbyids`, { ids: arrayID });
+        setUsers(res.data.users);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getFollowing();
+  }, [arrayID]);
+
+  console.log(userAvatar);
   return (
-    <></>
-    // <div>{arrayID}</div>
-  )
-}
+    <>
+      <div className="grid w-full overflow-auto grid-cols-12 place-content-center place-items-center gap-4">
+        {users.map((user) => {
+          return (
+            <Link
+              href={`/profile/${user.username}`}
+              key={user._id}
+              className="col-span-3 overflow-hidden lg:col-span-4 sm:col-span-6  rounded-lg w-full flex flex-col dark:bg-gradient-to-tl gap-2 dark:from-photeradark-900 dark:via-photeradark-800 dark:to-photeradark-400 ">
+              <div className="flex flex-row justify-around items-center">
+                <div className="w-6/12 p-1">
+                  <div className="w-14 h-14 sm:w-11 sm:h-11 relative overflow-hidden">
+                    <Image
+                      src={user.image}
+                      alt="profile"
+                      layout="fill"
+                      objectFit="contain"
+                      className="rounded-full"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  </div>
+                </div>
+                <div className="w-6/12d p-1 text-xl sm:text-lg font-light">
+                  <p>{user.username}</p>
+                </div>
+              </div>
+              <div className="w-full flex flex-row text-sm p-1 items-center text-center">
+                <div className="w-6/12">Followers:{user.followers.length}</div>
+                <div className="w-6/12">followings:{user.following.length}</div>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </>
+  );
+};
 
-export default FollowingCard
+export default FollowingCard;
