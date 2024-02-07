@@ -6,7 +6,7 @@ import LeftSideBar from "../../PhotoUploads/LeftSideBar";
 import CategoriesDash from "../CategoriesDash";
 import Following from "../Following/Following";
 
-const NavGreetingBar = ({session}) => {
+const NavGreetingBar = ({ session }) => {
   return (
     <div className="flex w-full flex-col ">
       <Tabs aria-label="Options" size="sm">
@@ -38,7 +38,7 @@ const NavGreetingBar = ({session}) => {
           <Card>
             <CardBody>
               <div className="h-[calc(100vh-16rem)] sm:h-[calc(100vh-15rem)] w-full overflow-auto scrollbar-hide">
-                <Feed session={session}/>
+                <Feed session={session} />
               </div>
             </CardBody>
           </Card>
@@ -96,8 +96,8 @@ const NavGreetingBar = ({session}) => {
           }>
           <Card>
             <CardBody>
-            <div className="h-[calc(100vh-16rem)] sm:h-[calc(100vh-15rem)] w-full overflow-auto scrollbar-hide">
-                <Following session={session}/>
+              <div className="h-[calc(100vh-16rem)] sm:h-[calc(100vh-15rem)] w-full overflow-auto scrollbar-hide">
+                <Following session={session} />
               </div>
             </CardBody>
           </Card>
