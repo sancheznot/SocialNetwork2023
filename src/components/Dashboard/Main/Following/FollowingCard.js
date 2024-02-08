@@ -27,8 +27,8 @@ const FollowingCard = ({ arrayID }) => {
             <Link
               href={`/profile/${user.username}`}
               key={user._id}
-              className="col-span-3 overflow-hidden lg:col-span-4 sm:col-span-6  rounded-lg w-full flex flex-col dark:bg-gradient-to-tl gap-2 dark:from-photeradark-900 dark:via-photeradark-800 dark:to-photeradark-400 ">
-              <div className="flex flex-row justify-around items-center">
+              className="col-span-3 overflow-hidden lg:col-span-4 sm:col-span-6  rounded-lg w-full flex flex-col dark:bg-gradient-to-tl gap-2 dark:from-photeradark-900 dark:via-photeradark-800 dark:to-photeradark-400 bg-gradient-to-tl from-slate-200 via-slate-300 to-slate-400">
+              <div className="flex flex-row justify-between items-center">
                 <div className="w-6/12 p-1">
                   <div className="w-14 h-14 sm:w-11 sm:h-11 relative overflow-hidden">
                     <Image
@@ -41,7 +41,7 @@ const FollowingCard = ({ arrayID }) => {
                     />
                   </div>
                 </div>
-                <div className="w-6/12d p-1 text-xl sm:text-lg font-light">
+                <div className="w-6/12d p-1 mr-4 text-xl sm:text-lg font-light">
                   <p>{user.username}</p>
                 </div>
               </div>
