@@ -1,9 +1,7 @@
-import { connectMongoDB } from "@/lib/mongodb";
 import Photos from "@/models/Photos";
 
 export async function GET(request) {
   try {
-    connectMongoDB();
     const photos = await Photos.find({}).sort({createdAt:-1});
     return Response.json({ photos });
   } catch (error) {
@@ -19,7 +17,6 @@ export async function POST(request) {
     );
   }
   try {
-    connectMongoDB();
     const newPhoto = await Photos.create({
       title,
       url,
