@@ -11,8 +11,6 @@ const s3client = new S3Client({
 const links = [];
 async function uploadFileToS3(file, fileName) {
   const fileBuffer = file;
-  console.log(fileName);
-
   const filenamed = `${process.env.S3_BUCKET_NAME}-${Date.now()}-${fileName}`;
 
   const params = {

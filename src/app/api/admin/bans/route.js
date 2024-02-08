@@ -1,8 +1,7 @@
-import { connectMongoDB } from "@/lib/mongodb";
 import BlackList from "@/models/BlackList";
 
 // this can be used to disable the cache
-export const revalidate=0
+export const revalidate = 0;
 
 export async function GET(request) {
   const header = request.headers.get("Authorization");
@@ -13,7 +12,6 @@ export async function GET(request) {
     );
   }
   try {
-    connectMongoDB();
     const blacklist = await BlackList.find({});
     return Response.json({ blacklist }, { status: 200 });
   } catch (error) {
@@ -35,7 +33,6 @@ export async function POST(request) {
     return Response.json({ message: "User already banned" }, { status: 202 });
   }
   try {
-    connectMongoDB();
     const newBlackList = await BlackList.create({
       username,
       email,
@@ -60,7 +57,6 @@ export async function DELETE(request) {
     return Response.json({ message: "User not found" }, { status: 202 });
   }
   try {
-    connectMongoDB();
     const newBlackList = await BlackList.deleteOne({
       username,
     });
