@@ -1,3 +1,4 @@
+import { connectMongoDB } from "@/lib/mongodb";
 import Photos from "@/models/Photos";
 // this can be used to disable the cache
 export const revalidate = 0;
@@ -7,6 +8,7 @@ export async function GET(request, { params }) {
     return Ids;
   });
   try {
+    connectMongoDB();
     const FavoritePost = await Photos.find({ _id: { $in: ids } });
     return Response.json({ message: "Favorites post found", FavoritePost });
   } catch (error) {

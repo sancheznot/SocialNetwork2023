@@ -1,3 +1,4 @@
+import { connectMongoDB } from "@/lib/mongodb";
 import Categories from "@/models/Categories";
 
 export async function POST(request) {
@@ -9,6 +10,7 @@ export async function POST(request) {
   }
 
   try {
+    connectMongoDB();
     const ExistCategory = await Categories.findOne({ name: categoryname });
     if (ExistCategory) {
       return Response.json({ message: "Category already exists" });
