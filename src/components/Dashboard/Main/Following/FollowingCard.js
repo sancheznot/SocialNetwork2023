@@ -5,10 +5,6 @@ import React, { useEffect, useState } from "react";
 
 const FollowingCard = ({ arrayID }) => {
   const [users, setUsers] = useState([]);
-  const [following, setFollowing] = useState([]);
-  const [followers, setFollowers] = useState([]);
-  const [username, setUsername] = useState("");
-  const [userAvatar, setUserAvatar] = useState("");
 
   useEffect(() => {
     if (arrayID.length <= 0) return;
@@ -23,7 +19,6 @@ const FollowingCard = ({ arrayID }) => {
     getFollowing();
   }, [arrayID]);
 
-  console.log(userAvatar);
   return (
     <>
       <div className="grid w-full overflow-auto grid-cols-12 place-content-center place-items-center gap-4">
