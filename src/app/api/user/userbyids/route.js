@@ -1,4 +1,3 @@
-
 import User from "@/models/User";
 
 export async function POST(request) {
