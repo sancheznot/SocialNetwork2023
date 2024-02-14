@@ -19,18 +19,18 @@ const Layout = () => {
       <div className="w-full h-[calc(100vh-5rem)] flex flex-col  items-center justify-between dark:bg-gradient-to-tl dark:from-photeradark-950 dark:via-photeradark-800 dark:to-photeradark-400 p-2 rounded-l-lg text-3xl">
         <div className="w-full flex flex-col justify-center items-center">
         <h1 className="self-start text-3xl font-light mb-5">Admin {session?.user?.username}</h1>
-          <div className="grid grid-cols-3 sm:gap-3 sm:grid-cols-2 w-full place-content-center place-items-center">
+          <div className="grid grid-cols-12 sm:gap-3  w-full place-content-center place-items-center">
             
             <Link
               href={"/sudo/categories/new"}
-              className="border-2 border-photeradark-300 w-7/12 sm:w-10/12 sm:h-28 p-1 h-52 rounded-xl flex justify-center items-center text-xl text-center">
+              className="border-2 col-span-6 sm:col-span-12 border-photeradark-300 w-7/12 sm:w-10/12 sm:h-28 p-1 h-52 rounded-xl flex justify-center items-center text-xl text-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-56 h-56">
+                className="w-56 h-56 sm:w-28">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -47,14 +47,14 @@ const Layout = () => {
 
             <Link
               href={"/sudo/blacklist/"}
-              className="border-2 border-photeradark-300 w-7/12 h-52 sm:w-10/12 sm:h-28 p-1 rounded-xl flex justify-center items-center text-xl text-center">
+              className="border-2 col-span-6 sm:col-span-12 border-photeradark-300 w-7/12 h-52 sm:w-10/12 sm:h-28 p-1 rounded-xl flex justify-center items-center text-xl text-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-56 h-56">
+                className="w-56 h-56 sm:w-28">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -62,25 +62,6 @@ const Layout = () => {
                 />
               </svg>
               Blacklist
-            </Link>
-
-            <Link
-              href={"/sudo/blacklist/newban"}
-              className="border-2 border-photeradark-300 w-7/12 h-52 sm:w-10/12 sm:h-28 p-1 rounded-xl flex justify-center items-center text-xl text-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-56 h-56">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
-                />
-              </svg>
-              New ban
             </Link>
           </div>
         </div>

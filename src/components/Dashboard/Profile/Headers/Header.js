@@ -7,7 +7,7 @@ import Follows from "./Follows";
 import Image from "next/image";
 import logoPhotera from "@pb/img/nobgLogo.png";
 import { useSession } from "next-auth/react";
-import { get } from "mongoose";
+import Link from "next/link";
 
 const Header = ({ username }) => {
   // user data of the user in session
@@ -31,9 +31,10 @@ const Header = ({ username }) => {
     const getUserData = async () => {
       try {
         const res = await axios.get(`/api/user/profile/${username}`);
+        console.log(res.data.user);
         setUserProfileID(res.data.user._id);
         setUserImage(res.data.user.image);
-        setUserImageToshow(res.data.user.imageProfileView);
+        setUserImageToshow(res.data.user.profilephoto);
         setUserName(res.data.user.name);
         setUserLastName(res.data.user.lastname);
         setUserFollowers(res.data.user.followers);
@@ -53,10 +54,28 @@ const Header = ({ username }) => {
     }
   }, [username, userInSession, updateData]);
 
+  useEffect(() => {
+    if (!username || !userInSession) {
+      setUserInSession(session?.user.username);
+    }
+    if (userInSession === username) {
+      setIsUser(true);
+    }
+  }, [username, userInSession, session?.user.username]);
+
   return (
     <div className="flex flex-col gap-9 sm:gap-5">
       <div className="flex flex-col gap-2 justify-center items-center w-full">
-        <PhotoToShow userimageToshow={userImageToshow} />
+        {isUser ? (
+          <div className="w-full">
+            <PhotoToShow
+              userimageToshow={userImageToshow}
+              userInSession={userInSession}
+            />
+          </div>
+        ) : (
+          <PhotoToShow userimageToshow={userImageToshow} />
+        )}
         <PhotoProfile imageProfile={userImage} />
       </div>
       <div className="flex flex-col justify-center items-center">
