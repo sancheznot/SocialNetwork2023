@@ -8,7 +8,7 @@ export async function GET(request, { params }) {
 
   try {
     connectMongoDB();
-    const user = await User.findOne({ username }).select(["name", "lastname", "image","photoFav", "followers", "following", "leyend"]);
+    const user = await User.findOne({ username }).select(["name", "lastname", "image","photoFav", "followers", "following", "profilephoto","leyend"]) ;
     if (!user || user === null)
       return Response.json({ message: "user not found" });
     const userPublic = await Photos.find({ user: user._id }).select(["-user"]);

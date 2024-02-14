@@ -44,6 +44,13 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User"
   }],
+  profilephoto: {
+    type: String,
+  },
+  leyend: {
+    type: String,
+    default: "Hey, I'm using Photera",
+  },
   isAdmin: {
     type: Boolean,
     default: false,
