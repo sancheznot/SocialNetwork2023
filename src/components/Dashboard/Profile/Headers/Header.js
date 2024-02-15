@@ -7,7 +7,7 @@ import Follows from "./Follows";
 import Image from "next/image";
 import logoPhotera from "@pb/img/nobgLogo.png";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
+
 
 const Header = ({ username }) => {
   // user data of the user in session
@@ -31,7 +31,6 @@ const Header = ({ username }) => {
     const getUserData = async () => {
       try {
         const res = await axios.get(`/api/user/profile/${username}`);
-        console.log(res.data.user);
         setUserProfileID(res.data.user._id);
         setUserImage(res.data.user.image);
         setUserImageToshow(res.data.user.profilephoto);
@@ -66,16 +65,11 @@ const Header = ({ username }) => {
   return (
     <div className="flex flex-col gap-9 sm:gap-5">
       <div className="flex flex-col gap-2 justify-center items-center w-full">
-        {isUser ? (
-          <div className="w-full">
-            <PhotoToShow
-              userimageToshow={userImageToshow}
-              userInSession={userInSession}
-            />
-          </div>
-        ) : (
-          <PhotoToShow userimageToshow={userImageToshow} />
-        )}
+        <PhotoToShow
+          userimageToshow={userImageToshow}
+          userInSession={userInSession}
+          isUser={isUser}
+        />
         <PhotoProfile imageProfile={userImage} />
       </div>
       <div className="flex flex-col justify-center items-center">
