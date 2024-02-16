@@ -114,10 +114,11 @@ const UpFeedPhotos = () => {
               <h4 className="col-span-12 font-extralight text-3xl">
                 Photos categories
               </h4>
-              <div className="col-span-3 w-full mx-2">
+              <div className="col-span-6 sm:col-span-12 w-full mx-2">
                 <select
                   name="category"
                   value={photoCategory}
+                  className="w-full h-10 dark:bg-photeradark-500 bg-slate-300 dark:text-white rounded-md p-2 text-lg"
                   onChange={(e) => {
                     setPhotoCategory(e.target.value);
                   }}>
@@ -134,7 +135,7 @@ const UpFeedPhotos = () => {
               color="primary"
               isLoading={uploading}
               onClick={handleSubmit}
-              className="text-lg">
+              className="text-lg sm:mt-10 ">
               Posted
             </Button>
           </form>

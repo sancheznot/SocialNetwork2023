@@ -17,8 +17,8 @@ const UserSchema = new Schema({
       "Please add a valid email",
     ],
   },
-  name: { type: String, required: true },
-  lastname: { type: String, required: true },
+  name: { type: String, required: true , minlength: 2, maxlength: 20},
+  lastname: { type: String, required: true, minlength: 2, maxlength: 20},
   password: {
     type: String,
     required: true,
@@ -50,6 +50,8 @@ const UserSchema = new Schema({
   leyend: {
     type: String,
     default: "Hey, I'm using Photera",
+    minlength: 3,
+    maxlength: 50,
   },
   isAdmin: {
     type: Boolean,

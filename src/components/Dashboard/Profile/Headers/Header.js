@@ -7,12 +7,26 @@ import Follows from "./Follows";
 import Image from "next/image";
 import logoPhotera from "@pb/img/nobgLogo.png";
 import { useSession } from "next-auth/react";
-
+import Link from "next/link";
+import { Tooltip } from "@nextui-org/react";
 
 const Header = ({ username }) => {
   // user data of the user in session
   const { data: session } = useSession();
-  const [userInSession, setUserInSession] = useState(session?.user.username);
+  const [userInSession, setUserInSession] = useState("");
+
+  useEffect(() => {
+    if (!session) return;
+    const getUserData = async () => {
+      const user = await axios.post(`/api/user/userbyids/`, {
+        ids: session?.user._id,
+      });
+      const usernameupdate = user?.data.users.map((user) => user.username);
+      setUserInSession(usernameupdate);
+    };
+    getUserData();
+  }, [session]);
+
   const [isUser, setIsUser] = useState(false);
   // user data of the user profile
   const [userProfileID, setUserProfileID] = useState("");
@@ -70,20 +84,125 @@ const Header = ({ username }) => {
           userInSession={userInSession}
           isUser={isUser}
         />
-        <PhotoProfile imageProfile={userImage} />
+        <PhotoProfile
+          imageProfile={userImage}
+          userInSession={userInSession}
+          isUser={isUser}
+        />
       </div>
       <div className="flex flex-col justify-center items-center">
         <div className="flex flex-row gap-2 font-light text-xl sm:text-lg">
-          <h4>{userName}</h4>
-          <h4>{userLastName}</h4>
+          {isUser ? (
+            <div className="flex flex-row justify-center items-center ml-5  gap-1">
+              <h4 className="first-letter:uppercase">{userName}</h4>
+              <h4 className="first-letter:uppercase">{userLastName}</h4>
+              <Tooltip
+                key={"foreground"}
+                color={"foreground"}
+                size="sm"
+                content={"Edit Names"}
+                className="capitalize">
+                <Link
+                  href={`/profile/${userInSession}/updates/names`}
+                  className="bg-slate-200 rounded-full h-5 w-5 hover:scale-150 flex justify-center items-center ">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-3 h-3 hover:scale-125 text-black">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+                    />
+                  </svg>
+                </Link>
+              </Tooltip>
+            </div>
+          ) : (
+            <>
+              <h4>{userName}</h4>
+              <h4>{userLastName}</h4>{" "}
+            </>
+          )}
         </div>
         <div className="flex flex-row justify-center items-center">
-          <div className="relative w-6 h-6">
-            <Image src={logoPhotera} alt={logoPhotera}></Image>
-          </div>
-          <p className="sm:text-sm">{username}</p>
+          {isUser ? (
+            <div className="flex flex-row justify-center items-center ml-5  gap-1">
+              <div className="relative w-6 h-6">
+                <Image src={logoPhotera} alt={logoPhotera}></Image>
+              </div>
+              <p className="sm:text-sm">{username}</p>
+              <Tooltip
+                key={"foreground"}
+                color={"foreground"}
+                size="sm"
+                content={"Edit Username"}
+                className="capitalize">
+                <Link
+                  href={`/profile/${userInSession}/updates/username`}
+                  className="bg-slate-200 rounded-full h-5 w-5 hover:scale-125 flex justify-center items-center ">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-3 h-3 hover:scale-105 text-black">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+                    />
+                  </svg>
+                </Link>
+              </Tooltip>
+            </div>
+          ) : (
+            <>
+              <div className="relative w-6 h-6">
+                <Image src={logoPhotera} alt={logoPhotera}></Image>
+              </div>
+              <p className="sm:text-sm">{username}</p>
+            </>
+          )}
         </div>
-        <LeyendProfile leyendProfile={userLeyend} />
+        {isUser ? (
+          <div className="flex flex-row justify-center items-center ml-5  gap-1">
+            <LeyendProfile leyendProfile={userLeyend} />
+
+            <Tooltip
+              key={"foreground"}
+              color={"foreground"}
+              size="sm"
+              content={"Edit leyend"}
+              className="capitalize">
+              <Link
+                href={`/profile/${userInSession}/updates/leyend`}
+                className="bg-slate-200 rounded-full h-5 w-5 hover:scale-125 flex justify-center items-center ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-3 h-3 hover:scale-105 text-black">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+                  />
+                </svg>
+              </Link>
+            </Tooltip>
+          </div>
+        ) : (
+          <>
+            <LeyendProfile leyendProfile={userLeyend} />
+          </>
+        )}
         <Follows
           userProfileID={userProfileID}
           setUpdateDataProfile={setUpdateData}

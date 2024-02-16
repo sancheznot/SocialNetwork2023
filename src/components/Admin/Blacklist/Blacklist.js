@@ -44,28 +44,45 @@ const Blacklist = () => {
   };
 
   return (
-    <div className="w-full h-[calc(100vh-5rem)] flex flex-col  items-center dark:bg-gradient-to-tl dark:from-photeradark-950 dark:via-photeradark-800 dark:to-photeradark-400 p-2 rounded-l-lg ">
+    <div className="w-full h-[calc(100vh-5rem)] overflow-auto flex flex-col  items-center dark:bg-gradient-to-tl dark:from-photeradark-950 dark:via-photeradark-800 dark:to-photeradark-400 p-2 rounded-l-lg ">
       <h3>{error}</h3>
       <h3>{success}</h3>
       <h1 className="self-start text-3xl font-light">BlackList</h1>
-      <div className="h-full w-full mt-5 flex flex-col justify-start items-start">
-        <div className="grid grid-cols-4 gap-1 w-full place-items-center">
-          <h5 className="text-lg font-medium">Username</h5>
-          <h5 className="text-lg font-medium">Email</h5>
-          <h5 className="text-lg font-medium">Reason</h5>
-          <h5 className="text-lg font-medium">Remove</h5>
-        </div>
+      <div className="h-full w-full mt-5 mb-2 flex flex-col justify-start items-start">
         {blakList?.map((user) => (
           <div
             key={user._id}
-            className="grid grid-cols-4 row-auto border-2 place-items-center border-photeradark-500 w-full p-3">
-            <h5 className="text-lg font-light ">{user.username}</h5>
-            <h5 className="text-lg font-light ">{user.email}</h5>
-            <h5>{user.reason}</h5>
-            <button
+            className="grid grid-cols-12 row-auto border-2 place-items-center border-photeradark-500 w-full p-3">
+            <div className="sm:col-span-6 col-span-3 w-8/12">
+              <div className="flex flex-col w-full justify-center items-center">
+                <p className="self-start sm:text-base">Email:</p>
+                <h5 className="text-lg sm:text-sm font-light ">{user.email}</h5>
+              </div>
+            </div>
+
+            <div className="sm:col-span-6 col-span-3 w-5/12">
+              <div className="flex flex-col w-full justify-center items-center">
+                <p className="self-start sm:text-base">Username:</p>
+                <h5 className="text-lg sm:text-sm font-light">
+                  {user.username}
+                </h5>
+              </div>
+            </div>
+            <div className="sm:col-span-6 col-span-3 w-5/12 sm:w-9/12">
+              <div className="flex flex-col w-full justify-center items-center">
+                <p className="self-start sm:text-base">Reason:</p>
+                <h5 className="text-lg sm:text-sm font-light w-full">
+                  {user.reason}
+                </h5>
+              </div>
+            </div>
+            <div className="sm:col-span-6 col-span-3 w-5/12 sm:w-9/12">
+              <div className="flex flex-col w-full justify-center items-center">
+                <button
               onClick={(e) => {
                 removeOftheList(e, user.username);
-              }}>
+              }}
+              className="text-lg font-light sm:w-3/12 sm:self-end ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -80,6 +97,9 @@ const Blacklist = () => {
                 />
               </svg>
             </button>
+              </div>
+            </div>
+            
           </div>
         ))}
       </div>
