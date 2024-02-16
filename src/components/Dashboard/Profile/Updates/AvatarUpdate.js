@@ -4,7 +4,7 @@ import FileDropzone from "../../PhotoUploads/FileDropzone";
 import { Button, Input } from "@nextui-org/react";
 import GoBackButton from "@/components/Admin/GoBackButton";
 
-const MainImageUpdate = ({ username }) => {
+const AvatarUpdate = ({ username }) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [userId, setUserID] = useState(username || "");
@@ -21,7 +21,7 @@ const MainImageUpdate = ({ username }) => {
     if (!userId) {
       return setError("Please provide a username");
     }
-    const data = await axios.post(`/api/user/update/${userId}/mainphoto`, {
+    const data = await axios.post(`/api/user/update/${userId}/avatar`, {
       imgURL: image,
     });
     if (data.status === 400) {
@@ -56,7 +56,7 @@ const MainImageUpdate = ({ username }) => {
     setUploading(true);
     try {
       const res = await axios.post(
-        "/api/user/uploads/profileimgmain",
+        "/api/user/uploads/profileavatar",
         formData,
         {
           headers: {
@@ -74,7 +74,7 @@ const MainImageUpdate = ({ username }) => {
   return (
     <div className="w-full h-[calc(100vh-5rem)] flex flex-col  items-center dark:bg-gradient-to-tl dark:from-photeradark-950 dark:via-photeradark-800 dark:to-photeradark-400 p-2 rounded-l-lg ">
       <h1 className="self-start text-3xl font-light">
-        Update main photo center
+        Update photo profile center
       </h1>
       <div className="h-full w-full flex justify-center items-start sm:mt-2">
         <div className="dark:bg-photeradark-200 w-7/12 sm:w-11/12 flex justify-center items-start rounded-lg text-photeradark-950">
@@ -102,10 +102,10 @@ const MainImageUpdate = ({ username }) => {
           </form>
         </div>
       </div>
-      <GoBackButton />
+      <GoBackButton/>
 
     </div>
   );
 };
 
-export default MainImageUpdate;
+export default AvatarUpdate;

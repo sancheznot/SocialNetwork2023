@@ -1,6 +1,7 @@
 import { CardSkeleton } from "@/components/NextUI/CardSkeleton";
 import { Box, useToast } from "@chakra-ui/react";
 import {
+  Avatar,
   Button,
   Modal,
   ModalBody,
@@ -125,12 +126,13 @@ const FeedCardUser = ({ username }) => {
 
               {/*  */}
 
-              <div className="absolute w-full sm:top-[10.3rem] sm:left-16 top-48 bg-transparent p-1 flex flex-col justify-center items-center">
-                <div className="w-14 h-14 sm:w-7 sm:h-7 relative overflow-hidden">
-                  <Image
+              <div className="absolute w-full sm:top-[10.3rem] sm:left-16  xl:left-24 top-56 left-32 bg-transparent p-1 flex flex-col justify-center items-center">
+                <div className="w-14 h-14 relative overflow-hidden">
+                  <Avatar
                     src={userImage}
                     layout="fill"
                     objectFit="contain"
+                    size="md"
                     className="rounded-full shadow-sm shadow-photeradark-400"
                     alt="User profile"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

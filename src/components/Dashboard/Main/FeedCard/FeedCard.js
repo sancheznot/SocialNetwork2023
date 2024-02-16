@@ -9,6 +9,7 @@ import {
   Button,
   useDisclosure,
   Tooltip,
+  Avatar,
 } from "@nextui-org/react";
 import { CardSkeleton } from "@/components/NextUI/CardSkeleton";
 import { Box, useToast } from "@chakra-ui/react";
@@ -106,9 +107,10 @@ const FeedCard = ({
                         <Link
                           href={`/profile/${user.username}`}
                           className="text-sm font-medium dark:text-photeradark-900">
-                          <Image
+                          <Avatar
                             src={user.image}
                             layout="fill"
+                            size="lg"
                             objectFit="contain"
                             className="rounded-full shadow-sm shadow-photeradark-400"
                             alt="User profile"

@@ -1,7 +1,6 @@
 import { Box, useToast } from "@chakra-ui/react";
 import { Button, user } from "@nextui-org/react";
 import axios from "axios";
-import { set } from "mongoose";
 import React, { useEffect, useState } from "react";
 
 const Follows = ({
@@ -35,6 +34,7 @@ const Follows = ({
 
   // function to get follows of user in session from the database
   useEffect(() => {
+    if (!userinSession) return;
     const getFollows = async () => {
       try {
         const res = await axios.get(`/api/user/userinsession/${userinSession}`);
@@ -43,7 +43,6 @@ const Follows = ({
         console.log(error);
       }
     };
-    if (!userinSession) return;
     getFollows();
   }, [userinSession, updateFollows]);
 
@@ -61,7 +60,7 @@ const Follows = ({
         <p className="text-sm">{userfav} Photos Fav</p>
       </div>
       <div className={isUser ? "hidden" : "block"}>
-        {followsUserInSession.includes(userProfileID) ? (
+        {followsUserInSession?.includes(userProfileID) ? (
           <>
             <div className="sm:hidden">
               <Button
