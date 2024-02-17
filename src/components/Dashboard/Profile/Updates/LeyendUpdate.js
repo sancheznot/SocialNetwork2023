@@ -58,14 +58,15 @@ const LeyendUpdate = ({username}) => {
       if (data.status === 400) {
         setError(data.data.message);
         setSuccess("");
+        return;
       }
       if (data.status === 200) {
         setSuccess(data.data.message);
         setError("");
+        setTimeout(() => {
+          router.push(`/profile/${username}`);
+        }, 1000);
       }
-      setTimeout(() => {
-        router.push(`/profile/${username}`);
-      }, 1000);
     };
   
     return (

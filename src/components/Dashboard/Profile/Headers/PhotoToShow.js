@@ -1,32 +1,64 @@
+import { Tooltip } from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const PhotoToShow = ({ userimageToshow, userInSession, isUser }) => {
+const PhotoToShow = ({
+  userimageToshow,
+  userInSession,
+  isUser,
+  settingMode,
+}) => {
   return (
     <div className="flex justify-center items-center mt-4 w-full">
       <div className="w-6/12 lg:w-11/12 sm:w-11/12 h-52 sm:h-32 bg-gray-200 rounded-lg relative  overflow-hidden">
-        {isUser ? (
-          <Link
-            href={`/profile/${userInSession}/updates/mainphoto`}
-            className="absolute bottom-0 right-0 z-20 bg-slate-200 rounded-tl-xl p-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-7 h-7 text-black">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-              />
-            </svg>
-          </Link>
+        {isUser && settingMode ? (
+          <Tooltip
+            key={"foreground"}
+            color={"foreground"}
+            size="sm"
+            delay={0}
+            closeDelay={0}
+            motionProps={{
+              variants: {
+                exit: {
+                  opacity: 0,
+                  transition: {
+                    duration: 0.1,
+                    ease: "easeIn",
+                  },
+                },
+                enter: {
+                  opacity: 1,
+                  transition: {
+                    duration: 0.15,
+                    ease: "easeOut",
+                  },
+                },
+              },
+            }}
+            content={"Edit Main photo"}
+            className="capitalize">
+            <Link
+              href={`/profile/${userInSession}/updates/mainphoto`}
+              className="absolute bottom-0 right-0 z-20 bg-slate-200 rounded-tl-xl p-1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-7 h-7 text-black">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                />
+              </svg>
+            </Link>
+          </Tooltip>
         ) : (
-          <>
-          </>
+          <></>
         )}
         <Image
           src={userimageToshow}

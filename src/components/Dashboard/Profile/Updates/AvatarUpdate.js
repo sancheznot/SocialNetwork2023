@@ -3,8 +3,12 @@ import React, { useState } from "react";
 import FileDropzone from "../../PhotoUploads/FileDropzone";
 import { Button, Input } from "@nextui-org/react";
 import GoBackButton from "@/components/Admin/GoBackButton";
+import { useRouter } from "next/navigation";
 
 const AvatarUpdate = ({ username }) => {
+
+  const router = useRouter();
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [userId, setUserID] = useState(username || "");
@@ -27,12 +31,15 @@ const AvatarUpdate = ({ username }) => {
     if (data.status === 400) {
       setError(data.data.message);
       setSuccess("");
+      return;
     }
     if (data.status === 200) {
-      console.log(data)
       setSuccess(data.data.message);
       setError("");
       setImage(null);
+      setTimeout(() => {
+        router.push(`/profile/${username}`);
+      }, 1000);
     }
     setTimeout(() => {
       setError("");
@@ -103,7 +110,6 @@ const AvatarUpdate = ({ username }) => {
         </div>
       </div>
       <GoBackButton/>
-
     </div>
   );
 };

@@ -21,7 +21,10 @@ const Following = ({ session }) => {
   }, [userinSession]);
 
   return (
-    <div>
+    <div className="flex flex-col gap-2">
+      <h3 className="font-extralight text-lg">
+        Your following: ( {followsUserInSession.length} )
+      </h3>
       <FollowingCard arrayID={followsUserInSession} />
     </div>
   );

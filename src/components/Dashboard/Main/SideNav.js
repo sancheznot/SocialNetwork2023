@@ -5,11 +5,11 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import PhotoUser from "./PhotoUser";
-import { ThemeSwitcher } from "@/components/NextTheme/ThemeSwitcher";
 
 const SideNav = () => {
   const { data: session } = useSession();
   const pathname = usePathname();
+  const username = session?.user?.username;
 
   return (
     <>
@@ -22,9 +22,9 @@ const SideNav = () => {
         </div>
         <div className=" w-full text-lg flex flex-col gap-2  mt-2 justify-center items-start ml">
           <Link
-            href="/dashboard/profile"
+            href={`/profile/${username}/settings`}
             className={
-              pathname === "/dashboard/profile"
+              pathname === `/profile/${username}/settings`
                 ? "flex flex-row gap-4 font-bold justify-start p-2 dark:bg-photeradark-400 dark:text-white rounded-l-xl w-11/12 self-end"
                 : "flex flex-row gap-4 font-light justify-start p-2  dark:text-white rounded-l-xl w-11/12 self-end"
             }>

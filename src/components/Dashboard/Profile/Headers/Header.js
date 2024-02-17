@@ -8,12 +8,14 @@ import Image from "next/image";
 import logoPhotera from "@pb/img/nobgLogo.png";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { Tooltip } from "@nextui-org/react";
-
+import { Switch, Tooltip } from "@nextui-org/react";
+import { usePathname, useRouter } from "next/navigation";
 const Header = ({ username }) => {
   // user data of the user in session
   const { data: session } = useSession();
   const [userInSession, setUserInSession] = useState("");
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     if (!session) return;
@@ -28,6 +30,7 @@ const Header = ({ username }) => {
   }, [session]);
 
   const [isUser, setIsUser] = useState(false);
+  const [settingMode, setSettingMode] = useState(false);
   // user data of the user profile
   const [userProfileID, setUserProfileID] = useState("");
   const [userImage, setUserImage] = useState("");
@@ -68,63 +71,116 @@ const Header = ({ username }) => {
   }, [username, userInSession, updateData]);
 
   useEffect(() => {
-    if (!username || !userInSession) {
+    if (!userInSession) {
       setUserInSession(session?.user.username);
     }
     if (userInSession === username) {
       setIsUser(true);
+      if (pathname === `/profile/${username}/settings`) {
+        setSettingMode(true);
+      }
+      return;
     }
-  }, [username, userInSession, session?.user.username]);
+  }, [
+    username,
+    userInSession,
+    session?.user.username,
+    pathname,
+    router,
+    isUser,
+  ]);
+
+  const editMode = () => {
+    setSettingMode(!settingMode);
+  };
 
   return (
-    <div className="flex flex-col gap-9 sm:gap-5">
-      <div className="flex flex-col gap-2 justify-center items-center w-full">
+    <div
+      className={
+        isUser ? "flex flex-col sm:gap-1" : "flex flex-col gap-9 sm:gap-6"
+      }>
+      <div
+        className={
+          pathname === `/profile/${username}/settings`
+            ? "flex flex-col gap-2 mb-10 justify-center items-center w-full"
+            : "flex flex-col gap-2 mb-2 justify-center items-center w-full"
+        }>
         <PhotoToShow
           userimageToshow={userImageToshow}
           userInSession={userInSession}
           isUser={isUser}
+          settingMode={settingMode}
         />
         <PhotoProfile
           imageProfile={userImage}
           userInSession={userInSession}
           isUser={isUser}
+          settingMode={settingMode}
         />
       </div>
+      {pathname !== `/profile/${username}/settings` && isUser && (
+        <Switch size="sm" onClick={editMode}>
+          Edit Mode
+        </Switch>
+      )}
+
       <div className="flex flex-col justify-center items-center">
         <div className="flex flex-row gap-2 font-light text-xl sm:text-lg">
           {isUser ? (
             <div className="flex flex-row justify-center items-center ml-5  gap-1">
               <h4 className="first-letter:uppercase">{userName}</h4>
               <h4 className="first-letter:uppercase">{userLastName}</h4>
-              <Tooltip
-                key={"foreground"}
-                color={"foreground"}
-                size="sm"
-                content={"Edit Names"}
-                className="capitalize">
-                <Link
-                  href={`/profile/${userInSession}/updates/names`}
-                  className="bg-slate-200 rounded-full h-5 w-5 hover:scale-150 flex justify-center items-center ">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-3 h-3 hover:scale-125 text-black">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
-                    />
-                  </svg>
-                </Link>
-              </Tooltip>
+              {settingMode && (
+                <Tooltip
+                  key={"foreground"}
+                  color={"foreground"}
+                  size="sm"
+                  delay={0}
+                  closeDelay={0}
+                  motionProps={{
+                    variants: {
+                      exit: {
+                        opacity: 0,
+                        transition: {
+                          duration: 0.1,
+                          ease: "easeIn",
+                        },
+                      },
+                      enter: {
+                        opacity: 1,
+                        transition: {
+                          duration: 0.15,
+                          ease: "easeOut",
+                        },
+                      },
+                    },
+                  }}
+                  content={"Edit Names"}
+                  className="capitalize">
+                  <Link
+                    href={`/profile/${userInSession}/updates/names`}
+                    className="bg-slate-200 rounded-full h-5 w-5 hover:scale-150 flex justify-center items-center ">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-3 h-3 hover:scale-125 text-black">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+                      />
+                    </svg>
+                  </Link>
+                </Tooltip>
+              )}
             </div>
           ) : (
             <>
               <h4>{userName}</h4>
-              <h4>{userLastName}</h4>{" "}
+              <h4>{userLastName}</h4>
             </>
           )}
         </div>
@@ -135,14 +191,94 @@ const Header = ({ username }) => {
                 <Image src={logoPhotera} alt={logoPhotera}></Image>
               </div>
               <p className="sm:text-sm">{username}</p>
+              {settingMode && (
+                <Tooltip
+                  key={"foreground"}
+                  color={"foreground"}
+                  size="sm"
+                  delay={0}
+                  closeDelay={0}
+                  motionProps={{
+                    variants: {
+                      exit: {
+                        opacity: 0,
+                        transition: {
+                          duration: 0.1,
+                          ease: "easeIn",
+                        },
+                      },
+                      enter: {
+                        opacity: 1,
+                        transition: {
+                          duration: 0.15,
+                          ease: "easeOut",
+                        },
+                      },
+                    },
+                  }}
+                  content={"Edit Username"}
+                  className="capitalize">
+                  <Link
+                    href={`/profile/${userInSession}/updates/username`}
+                    className="bg-slate-200 rounded-full h-5 w-5 hover:scale-125 flex justify-center items-center ">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-3 h-3 hover:scale-105 text-black">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+                      />
+                    </svg>
+                  </Link>
+                </Tooltip>
+              )}
+            </div>
+          ) : (
+            <>
+              <div className="relative w-6 h-6">
+                <Image src={logoPhotera} alt={logoPhotera}></Image>
+              </div>
+              <p className="sm:text-sm">{username}</p>
+            </>
+          )}
+        </div>
+        {isUser ? (
+          <div className="flex flex-row justify-center items-center ml-5  gap-1">
+            <LeyendProfile leyendProfile={userLeyend} />
+            {settingMode && (
               <Tooltip
                 key={"foreground"}
                 color={"foreground"}
                 size="sm"
-                content={"Edit Username"}
+                delay={0}
+                closeDelay={0}
+                motionProps={{
+                  variants: {
+                    exit: {
+                      opacity: 0,
+                      transition: {
+                        duration: 0.1,
+                        ease: "easeIn",
+                      },
+                    },
+                    enter: {
+                      opacity: 1,
+                      transition: {
+                        duration: 0.15,
+                        ease: "easeOut",
+                      },
+                    },
+                  },
+                }}
+                content={"Edit leyend"}
                 className="capitalize">
                 <Link
-                  href={`/profile/${userInSession}/updates/username`}
+                  href={`/profile/${userInSession}/updates/leyend`}
                   className="bg-slate-200 rounded-full h-5 w-5 hover:scale-125 flex justify-center items-center ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -159,44 +295,7 @@ const Header = ({ username }) => {
                   </svg>
                 </Link>
               </Tooltip>
-            </div>
-          ) : (
-            <>
-              <div className="relative w-6 h-6">
-                <Image src={logoPhotera} alt={logoPhotera}></Image>
-              </div>
-              <p className="sm:text-sm">{username}</p>
-            </>
-          )}
-        </div>
-        {isUser ? (
-          <div className="flex flex-row justify-center items-center ml-5  gap-1">
-            <LeyendProfile leyendProfile={userLeyend} />
-
-            <Tooltip
-              key={"foreground"}
-              color={"foreground"}
-              size="sm"
-              content={"Edit leyend"}
-              className="capitalize">
-              <Link
-                href={`/profile/${userInSession}/updates/leyend`}
-                className="bg-slate-200 rounded-full h-5 w-5 hover:scale-125 flex justify-center items-center ">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-3 h-3 hover:scale-105 text-black">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
-                  />
-                </svg>
-              </Link>
-            </Tooltip>
+            )}
           </div>
         ) : (
           <>
