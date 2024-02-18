@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import User from "@/models/User";
 import { connectMongoDB } from "@/lib/mongodb";
 import bycrypt from "bcryptjs";
+import BlackList from "@/models/BlackList";
 const profileImage =
   "https://upload.wikimedia.org/wikipedia/commons/5/50/User_icon-cp.svg";
 
@@ -44,6 +45,22 @@ export async function POST(request) {
     if (userFound) {
       return NextResponse.json(
         { message: "Username is in use" },
+        { status: 400 }
+      );
+    }
+
+    const userBanned = await BlackList.findOne({  username: username });
+    const emailBanned = await BlackList.findOne ({ email: email });
+
+    if (userBanned) {
+      return NextResponse.json(
+        { message: "Username is banned" },
+        { status: 400 }
+      );
+    }
+    if (emailBanned) {
+      return NextResponse.json(
+        { message: "Email is banned" },
         { status: 400 }
       );
     }

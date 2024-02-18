@@ -1,3 +1,4 @@
+import { Avatar } from "@nextui-org/react";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
@@ -31,11 +32,12 @@ const FollowingCard = ({ arrayID }) => {
               <div className="flex flex-row justify-between items-center">
                 <div className="w-6/12 p-1">
                   <div className="w-14 h-14 sm:w-11 sm:h-11 relative overflow-hidden">
-                    <Image
+                    <Avatar
                       src={user.image}
                       alt="profile"
                       layout="fill"
                       objectFit="contain"
+                      size="lg"
                       className="rounded-full"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />

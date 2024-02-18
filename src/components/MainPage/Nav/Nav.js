@@ -54,6 +54,7 @@ export default function App() {
                     color="primary"
                     href="register"
                     variant="ghost"
+                    size="sm"
                     className="sm:text-sm">
                     Sign Up
                   </Button>

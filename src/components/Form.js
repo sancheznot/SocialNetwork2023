@@ -64,6 +64,10 @@ const Form = () => {
           setSuccess(null);
           return setErrors("User not found");
         }
+        if (resSignin.error === "Username is banned") {
+          setSuccess(null);
+          return setErrors("Username is banned");
+        }
         if (resSignin.error === "Password not match or User not found") {
           setSuccess(null);
           return setErrors("Password not match or User not found");

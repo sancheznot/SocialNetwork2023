@@ -6,6 +6,7 @@ import User from "@/models/User";
 import { split } from "postcss/lib/list";
 import bycrypt from "bcryptjs";
 import { NextResponse } from "next/server";
+import BlackList from "@/models/BlackList";
 
 const handler = NextAuth({
   providers: [
@@ -21,10 +22,16 @@ const handler = NextAuth({
       },
       async authorize(credentials) {
         await connectMongoDB();
-
         const userFound = await User.findOne({
           username: credentials.username,
         }).select("+password");
+
+        const userBanned = await BlackList.findOne({
+          username: credentials?.username,
+        });
+        if (userBanned) {
+          throw new Error("Username is banned");
+        }
 
         if (!userFound) {
           throw new Error("User not found");
@@ -44,6 +51,11 @@ const handler = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
+        console.log(user);
+        const emailBanned = await BlackList.findOne({ email: user.email });
+        if (emailBanned) {
+          throw new Error("User banned");
+        }
         token.user = user;
         const sessionUser = await User.findOne({ email: user.email });
         if (!sessionUser) return;
@@ -86,6 +98,24 @@ const handler = NextAuth({
             { status: 400 }
           );
         }
+
+        const userBanned = await BlackList.findOne({
+          username: credentials?.username,
+        });
+        const emailBanned = await BlackList.findOne({ email: profile?.email });
+
+        if (userBanned) {
+          return NextResponse.json(
+            { message: "Username is banned" },
+            { status: 400 }
+          );
+        }
+        if (emailBanned) {
+          return NextResponse.json(
+            { message: "Email is banned" },
+            { status: 400 }
+          );
+        }
         if (!userExists || profile?.email_verified) {
           const usernameProvider =
             split(profile?.given_name, " ") + Math.floor(Math.random() * 1000);
@@ -106,7 +136,7 @@ const handler = NextAuth({
             image: profile?.picture,
           });
         }
-        
+
         return true;
       } catch (e) {
         return false;
