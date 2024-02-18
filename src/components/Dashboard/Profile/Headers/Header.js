@@ -119,7 +119,7 @@ const Header = ({ username }) => {
         />
       </div>
       {pathname !== `/profile/${username}/settings` && isUser && (
-        <Switch size="sm" onClick={editMode}>
+        <Switch size="sm" onClick={editMode} className="ml-2">
           Edit Mode
         </Switch>
       )}

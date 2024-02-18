@@ -15,6 +15,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import ButtonOption from "./ButtonOption";
 
 const FeedCardUser = ({ username }) => {
   const { data: session } = useSession();
@@ -29,6 +30,7 @@ const FeedCardUser = ({ username }) => {
   const [photoFav, setPhotoFav] = useState([]);
   const [actList, setActList] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isUser, setIsUser] = useState(false);
 
   useEffect(() => {
     const GetdataUser = async () => {
@@ -41,7 +43,7 @@ const FeedCardUser = ({ username }) => {
       }
     };
     GetdataUser();
-  }, [username]);
+  }, [username, actList]);
 
   useEffect(() => {
     const getPhotoFav = async () => {
@@ -57,7 +59,10 @@ const FeedCardUser = ({ username }) => {
     if (actList) {
       getPhotoFav();
     }
-  }, [session, currentUserID, actList]);
+    if (session?.user.username === username) {
+      setIsUser(true);
+    }
+  }, [session, currentUserID, actList, username]);
 
   const getImageInfo = (e) => {
     const data = e.target.value;
@@ -107,6 +112,16 @@ const FeedCardUser = ({ username }) => {
                   alt={item.title}
                   className="transition-transform duration-500 hover:scale-110"
                 />
+                {isUser && (
+                  <div className="absolute right-0">
+                    <ButtonOption
+                      photoId={item._id}
+                      currentUserID={currentUserID}
+                      setActList={setActList}
+                      actList={actList}
+                    />
+                  </div>
+                )}
               </div>
               {/*  */}
               <Button
@@ -123,9 +138,6 @@ const FeedCardUser = ({ username }) => {
                 }}>
                 View
               </Button>
-
-              {/*  */}
-
               <div className="absolute w-full sm:top-[10.3rem] sm:left-16  xl:left-24 top-56 left-32 bg-transparent p-1 flex flex-col justify-center items-center">
                 <div className="w-14 h-14 relative overflow-hidden">
                   <Avatar

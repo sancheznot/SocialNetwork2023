@@ -11,7 +11,7 @@ export async function GET(request) {
   }
 }
 export async function POST(request) {
-  const { title, url, user, category } = await request.json();
+  const { title, url,filename, user, category } = await request.json();
   if (!title || !url || !user) {
     return Response.json(
       { message: "Please fill all fields" },
@@ -23,6 +23,7 @@ export async function POST(request) {
     const newPhoto = await Photos.create({
       title,
       url,
+      filename,
       user,
       category,
     });
