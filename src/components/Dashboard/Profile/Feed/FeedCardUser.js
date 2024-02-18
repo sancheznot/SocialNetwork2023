@@ -207,7 +207,7 @@ const FeedCardUser = ({ username }) => {
                           <Button
                             color="foreground"
                             size="sm"
-                            className="w-1/12 bg-photeradark-500"
+                            className="w-1/12 dark:bg-photeradark-500 bg-slate-300"
                             onPress={(e) => deleteToFav(e)}
                             value={imageId}
                             onClick={() =>
@@ -260,7 +260,7 @@ const FeedCardUser = ({ username }) => {
                           <Button
                             color="foreground"
                             size="sm"
-                            className="w-1/12 bg-photeradark-500"
+                            className="w-1/12 dark:bg-photeradark-500 bg-slate-300"
                             onPress={(e) => saveToFav(e)}
                             onClick={() =>
                               toast({
