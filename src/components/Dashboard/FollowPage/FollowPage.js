@@ -27,18 +27,18 @@ const FollowPage = () => {
   console.log(lastuser);
   return (
     <>
-      <div className="grid w-full  mt-5 pr-2 overflow-auto grid-cols-12 place-content-center place-items-center gap-4 sm:gap-x-5">
+      <div className="grid w-full  mt-5 pr-2 overflow-auto grid-cols-12 place-content-center place-items-center gap-4">
         <h2 className="col-span-12 place-self-start text-3xl">Latest user</h2>
         {lastuser.map((user) => {
           return (
             <Link
               href={`/profile/${user.username}`}
               key={user._id}
-              className="col-span-3 sm:ml-2 sm:mr-2 overflow-hidden lg:col-span-4 sm:col-span-6  rounded-lg w-full flex
+              className="col-span-3 sm:ml-1 justify-center items-center overflow-hidden lg:col-span-4 sm:col-span-12  rounded-lg w-11/12 flex
             flex-col 
             bg-gradient-to-tl from-slate-200 via-slate-300 to-slate-400
             dark:bg-gradient-to-tl gap-2 dark:from-photeradark-900 dark:via-photeradark-800 dark:to-photeradark-400 ">
-              <div className="flex flex-row justify-between items-center ">
+              <div className="flex flex-row justify-between items-center w-full ">
                 <div className="w-6/12 p-1">
                   <div className="w-14 h-14 sm:w-11 sm:h-11 relative overflow-hidden">
                   <Avatar
