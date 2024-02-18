@@ -12,7 +12,7 @@ const PhotoProfile = ({ imageProfile, userInSession, isUser, settingMode }) => {
         className={
           pathname === `/profile/${userInSession}/settings`
             ? "flex justify-center items-center absolute top-80 right-[47rem] lg:right-[22rem] xl:right-[30rem]  sm:top-48 sm:right-36"
-            : "flex justify-center items-center absolute top-64 right-[46.5rem] lg:right-[22rem] xl:right-[30rem]  sm:top-36 sm:right-[8.5rem]"
+            : "flex justify-center items-center absolute top-64 right-[46.5rem] lg:right-[22rem] xl:right-[30rem]  sm:top-36 sm:right-36"
         }>
         <div className="w-20 h-20 sm:w-20 sm:h-20 relative overflow-hidden">
           {isUser && settingMode ? (
