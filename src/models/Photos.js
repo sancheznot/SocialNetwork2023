@@ -9,6 +9,10 @@ const PhotosSchema = new Schema({
         type : String,
         required : true
     },
+    filename: {
+        type : String,
+        required : true
+    },
     user : {
         type : Schema.Types.ObjectId,
         ref : 'Users',

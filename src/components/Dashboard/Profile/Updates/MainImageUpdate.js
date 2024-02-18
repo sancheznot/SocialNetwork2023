@@ -34,7 +34,6 @@ const MainImageUpdate = ({ username }) => {
       return;
     }
     if (data.status === 200) {
-      console.log(data)
       setSuccess(data.data.message);
       setError("");
       setImage(null);

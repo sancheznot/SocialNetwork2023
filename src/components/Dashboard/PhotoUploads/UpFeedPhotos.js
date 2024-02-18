@@ -15,6 +15,7 @@ const UpFeedPhotos = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [image, setImage] = useState(null);
+  const [fileName, setFileName] = useState("");
   const [userId, setUserId] = useState(null);
   const [title, setTitle] = useState("");
   const [uploading, setUploading] = useState(false);
@@ -51,6 +52,7 @@ const UpFeedPhotos = () => {
     const data = await axios.post("/api/user/uploads/publication", {
       title: title,
       url: image,
+      filename: fileName,
       user: userId,
       category: photoCategory,
     });
@@ -60,6 +62,7 @@ const UpFeedPhotos = () => {
       setError("");
       setTitle("");
       setImage(null);
+      setFileName("");
       setUploading(false);
       router.push("/dashboard");
     } else {
@@ -84,6 +87,7 @@ const UpFeedPhotos = () => {
         },
       });
       setImage(res.data.links[0]);
+      setFileName(res.data.filenamed[0]);
       setUploading(false);
     } catch (error) {
       setError(error);
