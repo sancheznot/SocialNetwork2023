@@ -37,3 +37,35 @@ If you need more information or help with this code, or have some fix to do you 
 - [INSTAGRAM](https://www.instagram.com/sancheznotdev/) - Follow me
 - [TWITTER OR X](https://twitter.com/sancheznotdev) - Follow me
 - [PORTFOLIO PAGE](https://www.sancheznot.com/) -
+
+# Images Photera!
+### Desktop Size (pending)
+#
+
+# Phone Size
+- [Feed]
+![phone size 1](/public/imgExample/1.jpeg)
+- [Latest user in the app]
+![phone size 1](/public/imgExample/2.jpeg)
+- [Photo Fav]
+![phone size 1](/public/imgExample/3.jpeg)
+- [Publication upload]
+![phone size 1](/public/imgExample/4.jpeg)
+- [Admin zone]
+![phone size 1](/public/imgExample/5.jpeg)
+- [New categories by admin]
+![phone size 1](/public/imgExample/6.jpeg)
+- [BlackList]
+![phone size 1](/public/imgExample/7.jpeg)
+- [Main User Profile]
+![phone size 1](/public/imgExample/8.jpeg)
+- [Main User Profile with edit mode ON]
+![phone size 1](/public/imgExample/9.jpeg)
+- [Main User Profile delete button]
+![phone size 1](/public/imgExample/10.jpeg)
+- [Photo zoom]
+![phone size 1](/public/imgExample/11.jpeg)
+- [User followings]
+![phone size 1](/public/imgExample/12.jpeg)
+- [Dashboard]
+![phone size 1](/public/imgExample/13.jpeg)
