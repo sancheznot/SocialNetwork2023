@@ -41,13 +41,22 @@ const FollowPage = () => {
               <div className="flex flex-row justify-between items-center">
                 <div className="w-6/12 p-1">
                   <div className="w-14 h-14 sm:w-11 sm:h-11 relative overflow-hidden">
+                  <Avatar
+                      src={user.image}
+                      alt="profile"
+                      layout="fill"
+                      objectFit="contain"
+                      size="md"
+                      className="rounded-full smm:hidden sm:block"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
                     <Avatar
                       src={user.image}
                       alt="profile"
                       layout="fill"
-                      size="lg"
                       objectFit="contain"
-                      className="rounded-full"
+                      size="lg"
+                      className="rounded-full sm:hidden"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   </div>

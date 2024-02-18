@@ -185,9 +185,10 @@ const FeedCardUser = ({ username }) => {
                             <Link
                               href={`/profile/${username}`}
                               className="text-sm font-medium dark:text-photeradark-900">
-                              <Image
+                              <Avatar
                                 src={userImage}
                                 layout="fill"
+                                size="lg"
                                 objectFit="contain"
                                 className="rounded-full shadow-sm shadow-photeradark-400"
                                 alt="User profile"

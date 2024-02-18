@@ -37,8 +37,17 @@ const FollowingCard = ({ arrayID }) => {
                       alt="profile"
                       layout="fill"
                       objectFit="contain"
+                      size="md"
+                      className="rounded-full smm:hidden sm:block"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                    <Avatar
+                      src={user.image}
+                      alt="profile"
+                      layout="fill"
+                      objectFit="contain"
                       size="lg"
-                      className="rounded-full"
+                      className="rounded-full sm:hidden"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   </div>
