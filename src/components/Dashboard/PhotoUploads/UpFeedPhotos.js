@@ -72,8 +72,6 @@ const UpFeedPhotos = () => {
 
   // It upload the photo to AWS S3
   const UploadPhoto = async (files) => {
-   
-
     if (!files) {
       return;
     }

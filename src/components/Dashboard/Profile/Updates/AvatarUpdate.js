@@ -6,13 +6,12 @@ import GoBackButton from "@/components/Admin/GoBackButton";
 import { useRouter } from "next/navigation";
 
 const AvatarUpdate = ({ username }) => {
-
   const router = useRouter();
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [userId, setUserID] = useState(username || "");
- 
+
   // AWS S3
   const [image, setImage] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -109,7 +108,7 @@ const AvatarUpdate = ({ username }) => {
           </form>
         </div>
       </div>
-      <GoBackButton/>
+      <GoBackButton />
     </div>
   );
 };
