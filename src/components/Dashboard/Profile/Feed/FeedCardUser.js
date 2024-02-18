@@ -186,7 +186,7 @@ const FeedCardUser = ({ username }) => {
                               href={`/profile/${username}`}
                               className="text-sm font-medium dark:text-photeradark-900">
                               <Avatar
-                                src={user.image}
+                                src={userImage}
                                 alt="profile"
                                 layout="fill"
                                 objectFit="contain"
@@ -195,7 +195,7 @@ const FeedCardUser = ({ username }) => {
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                               />
                               <Avatar
-                                src={user.image}
+                                src={userImage}
                                 alt="profile"
                                 layout="fill"
                                 objectFit="contain"
