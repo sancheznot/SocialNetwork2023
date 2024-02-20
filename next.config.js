@@ -9,13 +9,19 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "upload.wikimedia.org",
-      },{
+      },
+      {
         protocol: "https",
         hostname: "t4.ftcdn.net",
-      },{
+      },
+      {
         protocol: "https",
         hostname: "galleryapp2024.s3.amazonaws.com",
-      }
+      },
+      {
+        protocol: "https",
+        hostname: "galleryapp2024.s3.us-east-2.amazonaws.com",
+      },
     ],
   },
 };

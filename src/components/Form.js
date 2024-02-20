@@ -19,7 +19,10 @@ const Form = () => {
     e.preventDefault();
     const dataFromForm = new FormData(e.currentTarget);
     const usernameLower = dataFromForm.get("username").toLowerCase();
-
+    if (usernameLower.includes(" ")) {
+      return setErrors("Username can't contain spaces");
+    }
+    usernameLower.trim();
     if (Pathname === "/register") {
       const emailLower = dataFromForm.get("email").toLowerCase();
       try {
@@ -172,7 +175,9 @@ const Form = () => {
                     className="border border-gray-300 rounded-lg p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                     placeholder="Use a cool username!"
                   />
-                  <label htmlFor="email" className="text-gray-700 sm:text-sm sm:mb-0 dark:text-white text-md mb-2">
+                  <label
+                    htmlFor="email"
+                    className="text-gray-700 sm:text-sm sm:mb-0 dark:text-white text-md mb-2">
                     Email
                   </label>
                   <input
@@ -182,7 +187,9 @@ const Form = () => {
                     className="border border-gray-300 rounded-lg p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                     placeholder="Enter your email"
                   />
-                  <label htmlFor="name" className="text-gray-700sm:text-sm sm:mb-0  dark:text-white text-md mb-2">
+                  <label
+                    htmlFor="name"
+                    className="text-gray-700sm:text-sm sm:mb-0  dark:text-white text-md mb-2">
                     Name
                   </label>
                   <input
@@ -258,8 +265,10 @@ const Form = () => {
             ) : (
               <div className="w-full flex flex-col justify-center sm:p-0 items-start">
                 <div className="w-full flex flex-col justify-center sm:p-0 items-center">
-                <p className="my-2 sm:hidden">or</p>
-                  <h2 className="text-2xl sm:text-lg sm:p-0 p-2">Sign up with google</h2>
+                  <p className="my-2 sm:hidden">or</p>
+                  <h2 className="text-2xl sm:text-lg sm:p-0 p-2">
+                    Sign up with google
+                  </h2>
                   <div className="">
                     <button
                       onClick={() =>
